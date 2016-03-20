@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.0+" 
+	codebase="http://jogamp.org/deployment/test/jake2"
+	href="jake2_jogl.jnlp">
+	
+	<information>
+		<title>Jake2 - JOGL2</title>
+		<vendor>Bytonic Software</vendor>
+		<homepage href="http://www.bytonic.de/html/jake2.html"/>
+		<description>Java port of the Quake2 game engine (jogl-gl2-newt)</description>
+		<icon href="http://jogamp.org/deployment/test/jake2/icon.gif"/>
+		<offline-allowed/>
+	</information>
+	
+	<security>
+		<all-permissions/>
+	</security>
+	
+	<resources>
+		<j2se version="1.6+" max-heap-size="100M"/>
+		<jar href="jar/jake2.jar"/>
+		<property name="sun.java2d.noddraw" value="true"/>
+        <extension name="jogl-all-awt" href="http://jogamp.org/deployment/jogamp-current/jogl-all-awt.jnlp" />
+        <extension name="joal"         href="http://jogamp.org/deployment/jogamp-current/joal.jnlp" />
+	</resources>
+		
+	<application-desc main-class="jake2.Jake2">
+		<argument>+set</argument>
+		<argument>vid_ref</argument>
+		<argument>joglgl2</argument>
+		<argument>+set</argument>
+		<argument>s_impl</argument>
+		<argument>joal</argument>
+		<argument>+set</argument>
+		<argument>adr0</argument>
+		<argument>jake2.in-chemnitz.de</argument>			
+	</application-desc> 
+	
+</jnlp>
