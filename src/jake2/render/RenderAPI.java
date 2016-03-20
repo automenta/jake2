@@ -1,7 +1,6 @@
 package jake2.render;
 
 import com.jogamp.nativewindow.util.Dimension;
-
 import jake2.client.refdef_t;
 import jake2.render.opengl.GLDriver;
 

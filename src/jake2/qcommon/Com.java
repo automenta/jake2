@@ -32,9 +32,12 @@ import jake2.client.Console;
 import jake2.game.Cmd;
 import jake2.server.SV_MAIN;
 import jake2.sys.Sys;
-import jake2.util.*;
+import jake2.util.PrintfFormat;
+import jake2.util.Vargs;
 
-import java.io.*;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.RandomAccessFile;
 
 /**
  * Com

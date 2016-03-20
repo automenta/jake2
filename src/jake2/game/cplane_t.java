@@ -39,8 +39,10 @@ public class cplane_t
 		dist = c.dist;
 		type = c.type;
 		signbits = c.signbits;
-		pad[0] = c.pad[0];
-		pad[1] = c.pad[1];
+		byte[] pad = this.pad;
+		byte[] pad1 = c.pad;
+		pad[0] = pad1[0];
+		pad[1] = pad1[1];
 	}
 
 	public void clear() {
@@ -48,6 +50,7 @@ public class cplane_t
 		dist = 0;
 		type = 0;
 		signbits = 0;
+		byte[] pad = this.pad;
 		pad[0] = 0;
 		pad[1] = 0;
 	}

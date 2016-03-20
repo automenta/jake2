@@ -25,13 +25,12 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 package jake2.render;
 
 import com.jogamp.nativewindow.util.Dimension;
-
 import jake2.Defines;
 import jake2.client.refdef_t;
 import jake2.client.refexport_t;
 import jake2.render.opengl.JoglES1Driver;
-import jake2.sys.NEWTKBD;
 import jake2.sys.KBD;
+import jake2.sys.NEWTKBD;
 
 /**
  * JoglRenderer

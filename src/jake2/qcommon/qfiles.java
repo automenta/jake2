@@ -27,7 +27,10 @@ package jake2.qcommon;
 
 import jake2.Defines;
 
-import java.nio.*;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+import java.nio.FloatBuffer;
+import java.nio.ShortBuffer;
 
 /**
  * qfiles

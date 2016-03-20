@@ -23,6 +23,7 @@
  */
 package jake2.render.basic;
 
+import com.jogamp.nativewindow.util.Dimension;
 import jake2.Defines;
 import jake2.client.VID;
 import jake2.client.particle_t;
@@ -32,16 +33,14 @@ import jake2.render.image_t;
 import jake2.util.Lib;
 import jake2.util.Vargs;
 
-// import java.awt.geom.AffineTransform; // FIXME
-// import java.awt.image.AffineTransformOp; // FIXME
-// import java.awt.image.BufferedImage; // FIXME
-
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.IntBuffer;
 import java.util.Arrays;
 
-import com.jogamp.nativewindow.util.Dimension;
+// import java.awt.geom.AffineTransform; // FIXME
+// import java.awt.image.AffineTransformOp; // FIXME
+// import java.awt.image.BufferedImage; // FIXME
 
 
 /**

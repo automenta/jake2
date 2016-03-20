@@ -32,7 +32,9 @@ import jake2.qcommon.*;
 import jake2.server.SV_GAME;
 import jake2.util.Lib;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.Vector;
 
 /**
  * Cmd

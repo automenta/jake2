@@ -26,7 +26,10 @@ package jake2.client;
 import jake2.Defines;
 import jake2.util.Lib;
 
-import java.nio.*;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+import java.nio.FloatBuffer;
+import java.nio.IntBuffer;
 
 public class particle_t {
 	

@@ -27,7 +27,9 @@ package jake2.util;
 import jake2.game.*;
 import jake2.qcommon.Com;
 
-import java.io.*;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.RandomAccessFile;
 
 /**
  * RandomAccessFile, but handles readString/WriteString specially and offers

@@ -25,17 +25,26 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 package jake2.render.fast;
 
+import com.jogamp.nativewindow.util.Dimension;
 import jake2.Defines;
-import jake2.client.*;
-import jake2.game.*;
-import jake2.qcommon.*;
+import jake2.client.VID;
+import jake2.client.entity_t;
+import jake2.client.particle_t;
+import jake2.client.refdef_t;
+import jake2.game.Cmd;
+import jake2.game.cplane_t;
+import jake2.game.cvar_t;
+import jake2.qcommon.Com;
+import jake2.qcommon.Cvar;
+import jake2.qcommon.qfiles;
+import jake2.qcommon.xcommand_t;
 import jake2.render.*;
-import jake2.util.*;
+import jake2.util.Lib;
+import jake2.util.Math3D;
+import jake2.util.Vargs;
 
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
-
-import com.jogamp.nativewindow.util.Dimension;
 
 /**
  * Main
@@ -229,6 +238,7 @@ public abstract class Main extends Base {
         if (r_nocull.value != 0)
             return false;
 
+        cplane_t[] frustum = this.frustum;
         for (int i = 0; i < 4; i++) {
             if (Math3D.BoxOnPlaneSide(mins, maxs, frustum[i]) == 2)
                 return true;
@@ -240,11 +250,13 @@ public abstract class Main extends Base {
      * R_RotateForEntity
      */
     final void R_RotateForEntity(entity_t e) {
-        gl.glTranslatef(e.origin[0], e.origin[1], e.origin[2]);
+        float[] origin = e.origin;
+        gl.glTranslatef(origin[0], origin[1], origin[2]);
 
-        gl.glRotatef(e.angles[1], 0, 0, 1);
-        gl.glRotatef(-e.angles[0], 0, 1, 0);
-        gl.glRotatef(-e.angles[2], 1, 0, 0);
+        float[] angles = e.angles;
+        gl.glRotatef(angles[1], 0, 0, 1);
+        gl.glRotatef(-angles[0], 0, 1, 0);
+        gl.glRotatef(-angles[2], 1, 0, 0);
     }
 
     /*
@@ -295,6 +307,7 @@ public abstract class Main extends Base {
         gl.glBegin(GL_QUADS);
 
         gl.glTexCoord2f(0, 1);
+        float[] point = this.point;
         Math3D.VectorMA(e.origin, -frame.origin_y, vup, point);
         Math3D.VectorMA(point, -frame.origin_x, vright, point);
         gl.glVertex3f(point[0], point[1], point[2]);
@@ -477,6 +490,8 @@ public abstract class Main extends Base {
             origin_z = sourceVertices.get(j++);
 
             // hack a scale up to keep particles from disapearing
+            float[] r_origin = this.r_origin;
+            float[] vpn = this.vpn;
             scale =
                     (origin_x - r_origin[0]) * vpn[0]
                             + (origin_y - r_origin[1]) * vpn[1]
@@ -497,9 +512,11 @@ public abstract class Main extends Base {
             gl.glVertex3f(origin_x, origin_y, origin_z);
             // second vertex
             gl.glTexCoord2f(1.0625f, 0.0625f);
+            float[] up = this.up;
             gl.glVertex3f(origin_x + up[0] * scale, origin_y + up[1] * scale, origin_z + up[2] * scale);
             // third vertex
             gl.glTexCoord2f(0.0625f, 1.0625f);
+            float[] right = this.right;
             gl.glVertex3f(origin_x + right[0] * scale, origin_y + right[1] * scale, origin_z + right[2] * scale);
         }
         gl.glEnd();
@@ -549,6 +566,7 @@ public abstract class Main extends Base {
         if (gl_polyblend.value == 0.0f)
             return;
 
+        float[] v_blend = this.v_blend;
         if (v_blend[3] == 0.0f)
             return;
 
@@ -588,8 +606,9 @@ public abstract class Main extends Base {
     int SignbitsForPlane(cplane_t out) {
         // for fast box on planeside test
         int bits = 0;
+        float[] n = out.normal;
         for (int j = 0; j < 3; j++) {
-            if (out.normal[j] < 0)
+            if (n[j] < 0)
                 bits |= (1 << j);
         }
         return bits;
@@ -600,6 +619,8 @@ public abstract class Main extends Base {
      */
     void R_SetFrustum() {
         // rotate VPN right by FOV_X/2 degrees
+        cplane_t[] frustum = this.frustum;
+
         Math3D.RotatePointAroundVector(frustum[0].normal, vup, vpn, - (90f - r_newrefdef.fov_x / 2f));
         // rotate VPN left by FOV_X/2 degrees
         Math3D.RotatePointAroundVector(frustum[1].normal, vup, vpn, 90f - r_newrefdef.fov_x / 2f);
@@ -609,9 +630,10 @@ public abstract class Main extends Base {
         Math3D.RotatePointAroundVector(frustum[3].normal, vright, vpn, - (90f - r_newrefdef.fov_y / 2f));
 
         for (int i = 0; i < 4; i++) {
-            frustum[i].type = Defines.PLANE_ANYZ;
-            frustum[i].dist = Math3D.DotProduct(r_origin, frustum[i].normal);
-            frustum[i].signbits = (byte) SignbitsForPlane(frustum[i]);
+            cplane_t cplane_t = frustum[i];
+            cplane_t.type = Defines.PLANE_ANYZ;
+            cplane_t.dist = Math3D.DotProduct(r_origin, cplane_t.normal);
+            cplane_t.signbits = (byte) SignbitsForPlane(cplane_t);
         }
     }
 
@@ -733,10 +755,12 @@ public abstract class Main extends Base {
 
         gl.glRotatef(-90, 1, 0, 0); // put Z going up
         gl.glRotatef(90, 0, 0, 1); // put Z going up
-        gl.glRotatef(-r_newrefdef.viewangles[2], 1, 0, 0);
-        gl.glRotatef(-r_newrefdef.viewangles[0], 0, 1, 0);
-        gl.glRotatef(-r_newrefdef.viewangles[1], 0, 0, 1);
-        gl.glTranslatef(-r_newrefdef.vieworg[0], -r_newrefdef.vieworg[1], -r_newrefdef.vieworg[2]);
+        float[] viewangles = r_newrefdef.viewangles;
+        gl.glRotatef(-viewangles[2], 1, 0, 0);
+        gl.glRotatef(-viewangles[0], 0, 1, 0);
+        gl.glRotatef(-viewangles[1], 0, 0, 1);
+        float[] vieworg = r_newrefdef.vieworg;
+        gl.glTranslatef(-vieworg[0], -vieworg[1], -vieworg[2]);
 
         gl.glGetFloat(GL_MODELVIEW_MATRIX, r_world_matrix);
         r_world_matrix.clear();
@@ -941,14 +965,14 @@ public abstract class Main extends Base {
         gl_log = Cvar.Get("gl_log", "0", 0);
         gl_bitdepth = Cvar.Get("gl_bitdepth", "0", 0);
         gl_mode = Cvar.Get("gl_mode", "3", Defines.CVAR_ARCHIVE); // 640x480
-        gl_lightmap = Cvar.Get("gl_lightmap", "0", 0);
-        gl_shadows = Cvar.Get("gl_shadows", "0", Defines.CVAR_ARCHIVE);
+        gl_lightmap = Cvar.Get("gl_lightmap", "0", Defines.CVAR_ARCHIVE);
+        gl_shadows = Cvar.Get("gl_shadows", "1", Defines.CVAR_ARCHIVE);
         gl_dynamic = Cvar.Get("gl_dynamic", "1", 0);
         gl_nobind = Cvar.Get("gl_nobind", "0", 0);
         gl_round_down = Cvar.Get("gl_round_down", "1", 0);
-        gl_picmip = Cvar.Get("gl_picmip", "0", 0);
-        gl_skymip = Cvar.Get("gl_skymip", "0", 0);
-        gl_showtris = Cvar.Get("gl_showtris", "0", 0);
+        gl_picmip = Cvar.Get("gl_picmip", "1", 0);
+        gl_skymip = Cvar.Get("gl_skymip", "1", 0);
+        gl_showtris = Cvar.Get("gl_showtris", "0", Defines.CVAR_ARCHIVE);
         gl_ztrick = Cvar.Get("gl_ztrick", "0", 0);
         gl_finish = Cvar.Get("gl_finish", "0", Defines.CVAR_ARCHIVE);
         gl_clear = Cvar.Get("gl_clear", "0", 0);
@@ -958,7 +982,7 @@ public abstract class Main extends Base {
         gl_playermip = Cvar.Get("gl_playermip", "0", 0);
         gl_monolightmap = Cvar.Get("gl_monolightmap", "0", 0);
         gl_driver = Cvar.Get("gl_driver", "opengl32", Defines.CVAR_ARCHIVE);
-        gl_texturemode = Cvar.Get("gl_texturemode", "GL_LINEAR_MIPMAP_NEAREST", Defines.CVAR_ARCHIVE);
+        gl_texturemode = Cvar.Get("gl_texturemode", "GL_LINEAR_MIPMAP_LINEAR", Defines.CVAR_ARCHIVE);
         gl_texturealphamode = Cvar.Get("gl_texturealphamode", "default", Defines.CVAR_ARCHIVE);
         gl_texturesolidmode = Cvar.Get("gl_texturesolidmode", "default", Defines.CVAR_ARCHIVE);
         gl_lockpvs = Cvar.Get("gl_lockpvs", "0", 0);

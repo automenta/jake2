@@ -5,19 +5,27 @@
  */
 package jake2.sound.joal;
 
+import com.jogamp.openal.*;
+import com.jogamp.openal.eax.EAX;
+import com.jogamp.openal.eax.EAXFactory;
 import jake2.Defines;
 import jake2.Globals;
-import jake2.game.*;
-import jake2.qcommon.*;
+import jake2.game.Cmd;
+import jake2.game.GameBase;
+import jake2.game.cvar_t;
+import jake2.game.entity_state_t;
+import jake2.qcommon.Com;
+import jake2.qcommon.Cvar;
+import jake2.qcommon.FS;
+import jake2.qcommon.xcommand_t;
 import jake2.sound.*;
 import jake2.util.Lib;
 import jake2.util.Vargs;
 
-import java.nio.*;
-
-import com.jogamp.openal.*;
-import com.jogamp.openal.eax.EAX;
-import com.jogamp.openal.eax.EAXFactory;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+import java.nio.IntBuffer;
+import java.nio.ShortBuffer;
 
 /**
  * JOALSoundImpl

@@ -25,10 +25,13 @@
  */
 package jake2;
 
-import java.util.Locale;
-
-import jake2.qcommon.*;
+import jake2.qcommon.Com;
+import jake2.qcommon.Cvar;
+import jake2.qcommon.Q2DataTool;
+import jake2.qcommon.Qcommon;
 import jake2.sys.Timer;
+
+import java.util.Locale;
 
 // import java.util.Locale;
 

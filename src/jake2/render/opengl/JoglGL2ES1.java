@@ -1,12 +1,14 @@
 package jake2.render.opengl;
 
-import java.nio.*;
-
-
 import com.jogamp.opengl.GL;
 import com.jogamp.opengl.GL2ES1;
 import com.jogamp.opengl.GLException;
 import com.jogamp.opengl.util.ImmModeSink;
+
+import java.nio.ByteBuffer;
+import java.nio.FloatBuffer;
+import java.nio.IntBuffer;
+import java.nio.ShortBuffer;
 
 public class JoglGL2ES1 implements QGL {
 

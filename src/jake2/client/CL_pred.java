@@ -28,7 +28,9 @@ package jake2.client;
 import jake2.Defines;
 import jake2.Globals;
 import jake2.game.*;
-import jake2.qcommon.*;
+import jake2.qcommon.CM;
+import jake2.qcommon.Com;
+import jake2.qcommon.PMove;
 import jake2.util.Lib;
 import jake2.util.Math3D;
 

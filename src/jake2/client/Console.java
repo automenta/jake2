@@ -25,16 +25,16 @@
  */
 package jake2.client;
 
-import java.io.IOException;
-import java.io.RandomAccessFile;
-import java.util.Arrays;
-
 import jake2.Defines;
 import jake2.Globals;
 import jake2.game.Cmd;
 import jake2.qcommon.*;
 import jake2.util.Lib;
 import jake2.util.Vargs;
+
+import java.io.IOException;
+import java.io.RandomAccessFile;
+import java.util.Arrays;
 
 /**
  * Console

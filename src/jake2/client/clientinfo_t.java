@@ -23,8 +23,9 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 package jake2.client;
 
-import jake2.*;
-import jake2.render.*;
+import jake2.Defines;
+import jake2.render.image_t;
+import jake2.render.model_t;
 
 public class clientinfo_t {
 	String	name	="";

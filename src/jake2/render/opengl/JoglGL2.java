@@ -4,7 +4,10 @@ package jake2.render.opengl;
 import com.jogamp.opengl.GL;
 import com.jogamp.opengl.GL2;
 
-import java.nio.*;
+import java.nio.ByteBuffer;
+import java.nio.FloatBuffer;
+import java.nio.IntBuffer;
+import java.nio.ShortBuffer;
 
 
 public final class JoglGL2 implements QGL {

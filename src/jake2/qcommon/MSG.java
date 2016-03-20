@@ -23,8 +23,10 @@
 package jake2.qcommon;
 
 import jake2.Globals;
-import jake2.game.*;
-import jake2.util.*;
+import jake2.game.entity_state_t;
+import jake2.game.usercmd_t;
+import jake2.util.Lib;
+import jake2.util.Math3D;
 
 public class MSG extends Globals {
 
@@ -412,10 +414,11 @@ public class MSG extends Globals {
     public static int ReadByte(sizebuf_t msg_read) {
         int c;
 
-        if (msg_read.readcount + 1 > msg_read.cursize)
+        int readcount = msg_read.readcount;
+        if (readcount + 1 > msg_read.cursize)
             c = -1;
         else
-            c = msg_read.data[msg_read.readcount] & 0xff;
+            c = msg_read.data[readcount] & 0xff;
         
         msg_read.readcount++;
 
@@ -443,11 +446,14 @@ public class MSG extends Globals {
             c = -1;
         }
 
-        else
-            c = (msg_read.data[msg_read.readcount] & 0xff)
-                    | ((msg_read.data[msg_read.readcount + 1] & 0xff) << 8)
-                    | ((msg_read.data[msg_read.readcount + 2] & 0xff) << 16)
-                    | ((msg_read.data[msg_read.readcount + 3] & 0xff) << 24);
+        else {
+            int readcount = msg_read.readcount;
+            byte[] data = msg_read.data;
+            c = (data[readcount++] & 0xff)
+                    | ((data[readcount++] & 0xff) << 8)
+                    | ((data[readcount++] & 0xff) << 16)
+                    | ((data[readcount] & 0xff) << 24);
+        }
 
         msg_read.readcount += 4;
 
@@ -466,17 +472,18 @@ public class MSG extends Globals {
 
         byte c;
         int l = 0;
+        byte[] rb = MSG.readbuf;
         do {
             c = (byte) ReadByte(msg_read);
             if (c == -1 || c == 0)
                 break;
 
-            readbuf[l] = c;
+            rb[l] = c;
             l++;
         } while (l < 2047);
 
         // Com.dprintln("MSG.ReadString:[" + ret + "]");
-        return new String(readbuf, 0, l);
+        return new String(rb, 0, l);
     }
 
     public static String ReadStringLine(sizebuf_t msg_read) {

@@ -24,6 +24,7 @@
 
 package jake2.client;
 
+import com.jogamp.nativewindow.util.Dimension;
 import jake2.Defines;
 import jake2.Globals;
 import jake2.game.Cmd;
@@ -36,8 +37,6 @@ import jake2.util.Vargs;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.util.Arrays;
-
-import com.jogamp.nativewindow.util.Dimension;
 
 /**
  * SCR

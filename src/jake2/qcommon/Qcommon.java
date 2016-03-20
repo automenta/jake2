@@ -27,10 +27,14 @@ package jake2.qcommon;
 
 import jake2.Globals;
 import jake2.Jake2;
-import jake2.client.*;
+import jake2.client.CL;
+import jake2.client.Key;
+import jake2.client.SCR;
 import jake2.game.Cmd;
 import jake2.server.SV_MAIN;
-import jake2.sys.*;
+import jake2.sys.NET;
+import jake2.sys.Sys;
+import jake2.sys.Timer;
 import jake2.util.Vargs;
 
 import java.io.FileWriter;

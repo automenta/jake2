@@ -2029,10 +2029,12 @@ public class CL_fx {
 					p.alpha = 1.0f;
 					p.alphavel = -1.0f / (0.3f + (Lib.rand() & 7) * 0.02f);
 
-					p.org[0] = org[0] + i + (Lib.rand() & 3);
-					p.org[1] = org[1] + j + (Lib.rand() & 3);
-					p.org[2] = org[2] + k + (Lib.rand() & 3);
+					float[] porg = p.org;
+					porg[0] = org[0] + i + (Lib.rand() & 3);
+					porg[1] = org[1] + j + (Lib.rand() & 3);
+					porg[2] = org[2] + k + (Lib.rand() & 3);
 
+					float[] dir = CL_fx.dir;
 					dir[0] = j * 8;
 					dir[1] = i * 8;
 					dir[2] = k * 8;
@@ -2041,8 +2043,9 @@ public class CL_fx {
 					vel = 50 + (Lib.rand() & 63);
 					Math3D.VectorScale(dir, vel, p.vel);
 
-					p.accel[0] = p.accel[1] = 0;
-					p.accel[2] = -PARTICLE_GRAVITY;
+					float[] paccel = p.accel;
+					paccel[0] = paccel[1] = 0;
+					paccel[2] = -PARTICLE_GRAVITY;
 				}
 	}
 
@@ -2092,9 +2095,13 @@ public class CL_fx {
 
 			time2 = time * time;
 
-			org[0] = p.org[0] + p.vel[0] * time + p.accel[0] * time2;
-			org[1] = p.org[1] + p.vel[1] * time + p.accel[1] * time2;
-			org[2] = p.org[2] + p.vel[2] * time + p.accel[2] * time2;
+			float[] org = CL_fx.org;
+			float[] porg = p.org;
+			float[] pvel = p.vel;
+			float[] paccel = p.accel;
+			org[0] = porg[0] + pvel[0] * time + paccel[0] * time2;
+			org[1] = porg[1] + pvel[1] * time + paccel[1] * time2;
+			org[2] = porg[2] + pvel[2] * time + paccel[2] * time2;
 
 			V.AddParticle(org, color, alpha);
 			// PMM

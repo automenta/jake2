@@ -24,7 +24,9 @@ package jake2.qcommon;
 
 import jake2.Defines;
 import jake2.Globals;
-import jake2.game.*;
+import jake2.game.csurface_t;
+import jake2.game.pmove_t;
+import jake2.game.trace_t;
 import jake2.server.SV;
 import jake2.util.Math3D;
 

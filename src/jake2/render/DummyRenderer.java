@@ -7,17 +7,15 @@
  
 package jake2.render;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.jogamp.nativewindow.util.Dimension;
-
 import com.jogamp.newt.MonitorMode;
-
 import jake2.client.refdef_t;
 import jake2.client.refexport_t;
 import jake2.qcommon.xcommand_t;
 import jake2.sys.KBD;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * DummyRenderer

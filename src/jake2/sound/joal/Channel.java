@@ -24,6 +24,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 package jake2.sound.joal;
 
+import com.jogamp.openal.AL;
+import com.jogamp.openal.ALException;
 import jake2.Defines;
 import jake2.Globals;
 import jake2.client.CL_ents;
@@ -38,9 +40,6 @@ import java.nio.ByteBuffer;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Map;
-
-import com.jogamp.openal.AL;
-import com.jogamp.openal.ALException;
 
 /**
  * Channel

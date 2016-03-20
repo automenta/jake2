@@ -75,7 +75,7 @@ public final class FS extends Globals {
 
         int numfiles;
 
-        Hashtable files; // with packfile_t entries
+        HashMap files; // with packfile_t entries
     }
 
     public static String fs_gamedir;
@@ -97,7 +97,7 @@ public final class FS extends Globals {
     }
 
     // with filelink_t entries
-    public static final List fs_links = new LinkedList();
+    public static final Deque<filelink_t> fs_links = new ArrayDeque();
 
     public static class searchpath_t {
         String filename;
@@ -401,6 +401,7 @@ public final class FS extends Globals {
 
         try {
             // check for links first
+
             for (Iterator it = fs_links.iterator(); it.hasNext();) {
                 link = (filelink_t) it.next();
 
@@ -520,7 +521,7 @@ public final class FS extends Globals {
     static pack_t LoadPackFile(String packfile) {
 
         dpackheader_t header;
-        Hashtable newfiles;
+        HashMap newfiles;
         RandomAccessFile file;
         int numpackfiles = 0;
         pack_t pack = null;
@@ -551,7 +552,7 @@ public final class FS extends Globals {
                 Com.Error(Defines.ERR_FATAL, packfile + " has " + numpackfiles
                         + " files");
 
-            newfiles = new Hashtable(numpackfiles);
+            newfiles = new HashMap(numpackfiles);
 
             packhandle.position(header.dirofs);
 

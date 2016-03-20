@@ -24,7 +24,9 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 package jake2.render.basic;
 
 import jake2.Defines;
-import jake2.client.*;
+import jake2.client.dlight_t;
+import jake2.client.entity_t;
+import jake2.client.lightstyle_t;
 import jake2.game.cplane_t;
 import jake2.qcommon.Com;
 import jake2.render.*;

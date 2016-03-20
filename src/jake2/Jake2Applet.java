@@ -25,17 +25,16 @@
  */
 package jake2;
 
+import com.jogamp.common.os.Platform;
 import jake2.game.Cmd;
-import jake2.qcommon.*;
+import jake2.qcommon.Cvar;
+import jake2.qcommon.Qcommon;
 import jake2.sys.Timer;
+import netscape.javascript.JSObject;
 
 import java.applet.Applet;
 import java.awt.*;
 import java.util.StringTokenizer;
-
-import com.jogamp.common.os.Platform;
-
-import netscape.javascript.*;
 
 /**
  * Jake2 is the main class of Quake2 for Java.

@@ -6,9 +6,11 @@
  */
 package jake2.sound.jsound;
 
-import java.nio.ByteBuffer;
+import jake2.sound.S;
+import jake2.sound.Sound;
+import jake2.sound.sfx_t;
 
-import jake2.sound.*;
+import java.nio.ByteBuffer;
 
 /**
  * JSoundImpl

@@ -31,17 +31,18 @@
 
 package jake2;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.FontMetrics;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.event.*;
-import java.awt.font.*;
-import java.awt.geom.*;
-import java.net.*;
-import java.text.*;
+import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.font.FontRenderContext;
+import java.awt.font.GlyphVector;
+import java.awt.font.LineBreakMeasurer;
+import java.awt.font.TextAttribute;
+import java.awt.geom.Rectangle2D;
+import java.net.URL;
+import java.text.AttributedString;
 import java.util.*;
+import java.util.List;
 
 /**
  * An applet to smooth the adoption of newer applet content which runs

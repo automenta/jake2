@@ -25,6 +25,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 package jake2.render.fast;
 
+import com.jogamp.nativewindow.util.Dimension;
 import jake2.Defines;
 import jake2.client.VID;
 import jake2.qcommon.Com;
@@ -33,8 +34,6 @@ import jake2.util.Lib;
 
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
-
-import com.jogamp.nativewindow.util.Dimension;
 
 /**
  * Draw

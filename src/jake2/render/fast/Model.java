@@ -31,9 +31,14 @@ import jake2.game.cplane_t;
 import jake2.game.cvar_t;
 import jake2.qcommon.*;
 import jake2.render.*;
-import jake2.util.*;
+import jake2.util.Lib;
+import jake2.util.Math3D;
+import jake2.util.Vargs;
 
-import java.nio.*;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+import java.nio.FloatBuffer;
+import java.nio.ShortBuffer;
 import java.util.Arrays;
 import java.util.Vector;
 
@@ -1333,14 +1338,16 @@ public abstract class Model extends Surf {
 			
 		count = 0;
 		int pos = 0;
+		ShortBuffer[] indexElements = model.indexElements;
 		for (int i = 0; i < model.counts.length; i++) {
 			count = tmp.get(i);
 			model.counts[i] = count;
 				
 			count = (count < 0) ? -count : count;
 			model.vertexIndexBuf.position(pos);
-			model.indexElements[i] = model.vertexIndexBuf.slice();
-			model.indexElements[i].limit(count);
+
+			indexElements[i] = model.vertexIndexBuf.slice();
+			indexElements[i].limit(count);
 			pos += count;
 		}
 	}

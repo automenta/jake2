@@ -22,7 +22,7 @@
 // $Id: netchan_t.java,v 1.2 2004-09-22 19:22:09 salomo Exp $
 package jake2.qcommon;
 
-import jake2.*;
+import jake2.Defines;
 
 public class netchan_t {
 

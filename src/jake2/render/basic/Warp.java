@@ -28,7 +28,9 @@ package jake2.render.basic;
 import jake2.Defines;
 import jake2.Globals;
 import jake2.qcommon.Com;
-import jake2.render.*;
+import jake2.render.glpoly_t;
+import jake2.render.image_t;
+import jake2.render.msurface_t;
 import jake2.util.Math3D;
 
 /**

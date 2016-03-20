@@ -25,19 +25,17 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 package jake2.render.opengl;
 
-import java.util.List;
-
+import com.jogamp.nativewindow.util.Dimension;
+import com.jogamp.newt.MonitorMode;
 import com.jogamp.opengl.GLProfile;
+import com.jogamp.opengl.util.glsl.fixedfunc.FixedFuncUtil;
+import com.jogamp.opengl.util.glsl.fixedfunc.ShaderSelectionMode;
 import jake2.game.cvar_t;
 import jake2.qcommon.Cvar;
 import jake2.qcommon.xcommand_t;
 import jake2.render.Base;
 
-import com.jogamp.nativewindow.util.Dimension;
-
-import com.jogamp.newt.MonitorMode;
-import com.jogamp.opengl.util.glsl.fixedfunc.FixedFuncUtil;
-import com.jogamp.opengl.util.glsl.fixedfunc.ShaderSelectionMode;
+import java.util.List;
 
 /**
  * JoglCommon

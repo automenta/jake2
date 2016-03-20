@@ -5,7 +5,23 @@
  */
 package jake2.render.opengl;
 
+import com.jogamp.common.os.Platform;
+import com.jogamp.nativewindow.CapabilitiesChooser;
+import com.jogamp.nativewindow.WindowClosingProtocol;
+import com.jogamp.nativewindow.util.Dimension;
+import com.jogamp.nativewindow.util.DimensionImmutable;
+import com.jogamp.nativewindow.util.SurfaceSize;
+import com.jogamp.newt.MonitorDevice;
+import com.jogamp.newt.MonitorMode;
+import com.jogamp.newt.NewtFactory;
+import com.jogamp.newt.Screen;
+import com.jogamp.newt.awt.NewtCanvasAWT;
+import com.jogamp.newt.event.KeyEvent;
+import com.jogamp.newt.event.KeyListener;
+import com.jogamp.newt.event.WindowAdapter;
+import com.jogamp.newt.event.WindowEvent;
 import com.jogamp.newt.opengl.GLWindow;
+import com.jogamp.newt.util.MonitorModeUtil;
 import com.jogamp.opengl.*;
 import jake2.Defines;
 import jake2.Globals;
@@ -16,23 +32,10 @@ import jake2.qcommon.Cbuf;
 import jake2.qcommon.Cvar;
 import jake2.render.Base;
 import jake2.sys.NEWTKBD;
+import jogamp.opengl.FPSCounterImpl;
 
 import java.io.PrintStream;
 import java.util.List;
-
-
-import com.jogamp.nativewindow.*;
-import com.jogamp.nativewindow.util.*;
-
-
-import jogamp.opengl.FPSCounterImpl;
-
-import com.jogamp.common.os.Platform;
-import com.jogamp.newt.*;
-import com.jogamp.newt.awt.NewtCanvasAWT;
-import com.jogamp.newt.event.*;
-
-import com.jogamp.newt.util.MonitorModeUtil;
 
 public class NEWTWin {
     final static boolean DEBUG = false;
@@ -298,6 +301,7 @@ public class NEWTWin {
      */
     public final void endFrame() {
         window.swapBuffers();
+
         animCtrl.fpsCounter.tickFPS();
         if( shouldQuit ) {
             deactivateGLContext();

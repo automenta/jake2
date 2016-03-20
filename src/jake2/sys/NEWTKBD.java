@@ -1,9 +1,9 @@
 package jake2.sys;
 
-import jake2.client.Key;
-
 import com.jogamp.newt.Window;
-import com.jogamp.newt.event.*;
+import com.jogamp.newt.event.KeyEvent;
+import com.jogamp.newt.event.MouseEvent;
+import jake2.client.Key;
 
 final public class NEWTKBD extends KBD
 {

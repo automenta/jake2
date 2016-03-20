@@ -23,12 +23,19 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 package jake2.render.basic;
 
+import com.jogamp.nativewindow.util.Dimension;
 import jake2.Defines;
-import jake2.client.*;
+import jake2.client.VID;
+import jake2.client.entity_t;
+import jake2.client.particle_t;
+import jake2.client.refdef_t;
 import jake2.game.Cmd;
 import jake2.game.cplane_t;
 import jake2.game.cvar_t;
-import jake2.qcommon.*;
+import jake2.qcommon.Com;
+import jake2.qcommon.Cvar;
+import jake2.qcommon.qfiles;
+import jake2.qcommon.xcommand_t;
 import jake2.render.*;
 import jake2.util.Lib;
 import jake2.util.Math3D;
@@ -36,8 +43,6 @@ import jake2.util.Vargs;
 
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
-
-import com.jogamp.nativewindow.util.Dimension;
 
 /**
  * Main

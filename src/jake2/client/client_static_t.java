@@ -25,7 +25,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 package jake2.client;
 
 import jake2.qcommon.netchan_t;
-import java.io.*;
+
+import java.io.RandomAccessFile;
 
 public class client_static_t {
 

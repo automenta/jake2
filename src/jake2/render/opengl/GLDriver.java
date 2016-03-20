@@ -1,12 +1,10 @@
 package jake2.render.opengl;
 
-import java.util.List;
-
 import com.jogamp.nativewindow.util.Dimension;
-
+import com.jogamp.newt.MonitorMode;
 import jake2.qcommon.xcommand_t;
 
-import com.jogamp.newt.MonitorMode;
+import java.util.List;
 
 public interface GLDriver {
     

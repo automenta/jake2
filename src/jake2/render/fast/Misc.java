@@ -30,7 +30,9 @@ import jake2.client.VID;
 import jake2.qcommon.FS;
 import jake2.util.Lib;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
+import java.io.RandomAccessFile;
 import java.nio.FloatBuffer;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;

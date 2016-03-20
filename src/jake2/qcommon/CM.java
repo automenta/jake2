@@ -24,10 +24,15 @@ package jake2.qcommon;
 import jake2.Defines;
 import jake2.Globals;
 import jake2.game.*;
-import jake2.util.*;
+import jake2.util.Lib;
+import jake2.util.Math3D;
+import jake2.util.Vargs;
+import jake2.util.Vec3Cache;
 
 import java.io.RandomAccessFile;
-import java.nio.*;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+import java.nio.IntBuffer;
 import java.util.Arrays;
 
 public class CM {

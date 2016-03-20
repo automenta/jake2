@@ -208,6 +208,7 @@ public class Math3D {
 		im[2][1] = m[1][2];
 		im[2][2] = m[2][2];
 
+		float[][] zrot = Math3D.zrot;
 		zrot[0][2] = zrot[1][2] = zrot[2][0] = zrot[2][1] = 0.0f;
 
 		zrot[2][2] = 1.0F;
@@ -220,7 +221,8 @@ public class Math3D {
 		R_ConcatRotations(tmpmat, im, zrot);
 
 		for (int i = 0; i < 3; i++) {
-			dst[i] = zrot[i][0] * point[0] + zrot[i][1] * point[1] + zrot[i][2] * point[2];
+			float[] zr = zrot[i];
+			dst[i] = zr[0] * point[0] + zr[1] * point[1] + zr[2] * point[2];
 		}
 	}
 
@@ -262,15 +264,23 @@ public class Math3D {
 	 * concatenates 2 matrices each [3][3].
 	 */
 	public static void R_ConcatRotations(float in1[][], float in2[][], float out[][]) {
-		out[0][0] = in1[0][0] * in2[0][0] + in1[0][1] * in2[1][0] + in1[0][2] * in2[2][0];
-		out[0][1] = in1[0][0] * in2[0][1] + in1[0][1] * in2[1][1] + in1[0][2] * in2[2][1];
-		out[0][2] = in1[0][0] * in2[0][2] + in1[0][1] * in2[1][2] + in1[0][2] * in2[2][2];
-		out[1][0] = in1[1][0] * in2[0][0] + in1[1][1] * in2[1][0] + in1[1][2] * in2[2][0];
-		out[1][1] = in1[1][0] * in2[0][1] + in1[1][1] * in2[1][1] + in1[1][2] * in2[2][1];
-		out[1][2] = in1[1][0] * in2[0][2] + in1[1][1] * in2[1][2] + in1[1][2] * in2[2][2];
-		out[2][0] = in1[2][0] * in2[0][0] + in1[2][1] * in2[1][0] + in1[2][2] * in2[2][0];
-		out[2][1] = in1[2][0] * in2[0][1] + in1[2][1] * in2[1][1] + in1[2][2] * in2[2][1];
-		out[2][2] = in1[2][0] * in2[0][2] + in1[2][1] * in2[1][2] + in1[2][2] * in2[2][2];
+		float[] in1_0 = in1[0];
+		float[] out0 = out[0];
+		out0[0] = in1_0[0] * in2[0][0] + in1_0[1] * in2[1][0] + in1_0[2] * in2[2][0];
+		out0[1] = in1_0[0] * in2[0][1] + in1_0[1] * in2[1][1] + in1_0[2] * in2[2][1];
+		out0[2] = in1_0[0] * in2[0][2] + in1_0[1] * in2[1][2] + in1_0[2] * in2[2][2];
+
+		float[] out1 = out[1];
+		float[] in1_1 = in1[1];
+		out1[0] = in1_1[0] * in2[0][0] + in1_1[1] * in2[1][0] + in1_1[2] * in2[2][0];
+		out1[1] = in1_1[0] * in2[0][1] + in1_1[1] * in2[1][1] + in1_1[2] * in2[2][1];
+		out1[2] = in1_1[0] * in2[0][2] + in1_1[1] * in2[1][2] + in1_1[2] * in2[2][2];
+
+		float[] out2 = out[2];
+		float[] in1_2 = in1[2];
+		out2[0] = in1_2[0] * in2[0][0] + in1_2[1] * in2[1][0] + in1_2[2] * in2[2][0];
+		out2[1] = in1_2[0] * in2[0][1] + in1_2[1] * in2[1][1] + in1_2[2] * in2[2][1];
+		out2[2] = in1_2[0] * in2[0][2] + in1_2[1] * in2[1][2] + in1_2[2] * in2[2][2];
 	}
 	public static void ProjectPointOnPlane(float[] dst, float[] p, float[] normal) {
 
@@ -330,38 +340,39 @@ public class Math3D {
 		}
 
 		//	   general case
+		float[] normal = p.normal;
 		switch (p.signbits) {
 			case 0 :
-				dist1 = p.normal[0] * emaxs[0] + p.normal[1] * emaxs[1] + p.normal[2] * emaxs[2];
-				dist2 = p.normal[0] * emins[0] + p.normal[1] * emins[1] + p.normal[2] * emins[2];
+				dist1 = normal[0] * emaxs[0] + normal[1] * emaxs[1] + normal[2] * emaxs[2];
+				dist2 = normal[0] * emins[0] + normal[1] * emins[1] + normal[2] * emins[2];
 				break;
 			case 1 :
-				dist1 = p.normal[0] * emins[0] + p.normal[1] * emaxs[1] + p.normal[2] * emaxs[2];
-				dist2 = p.normal[0] * emaxs[0] + p.normal[1] * emins[1] + p.normal[2] * emins[2];
+				dist1 = normal[0] * emins[0] + normal[1] * emaxs[1] + normal[2] * emaxs[2];
+				dist2 = normal[0] * emaxs[0] + normal[1] * emins[1] + normal[2] * emins[2];
 				break;
 			case 2 :
-				dist1 = p.normal[0] * emaxs[0] + p.normal[1] * emins[1] + p.normal[2] * emaxs[2];
-				dist2 = p.normal[0] * emins[0] + p.normal[1] * emaxs[1] + p.normal[2] * emins[2];
+				dist1 = normal[0] * emaxs[0] + normal[1] * emins[1] + normal[2] * emaxs[2];
+				dist2 = normal[0] * emins[0] + normal[1] * emaxs[1] + normal[2] * emins[2];
 				break;
 			case 3 :
-				dist1 = p.normal[0] * emins[0] + p.normal[1] * emins[1] + p.normal[2] * emaxs[2];
-				dist2 = p.normal[0] * emaxs[0] + p.normal[1] * emaxs[1] + p.normal[2] * emins[2];
+				dist1 = normal[0] * emins[0] + normal[1] * emins[1] + normal[2] * emaxs[2];
+				dist2 = normal[0] * emaxs[0] + normal[1] * emaxs[1] + normal[2] * emins[2];
 				break;
 			case 4 :
-				dist1 = p.normal[0] * emaxs[0] + p.normal[1] * emaxs[1] + p.normal[2] * emins[2];
-				dist2 = p.normal[0] * emins[0] + p.normal[1] * emins[1] + p.normal[2] * emaxs[2];
+				dist1 = normal[0] * emaxs[0] + normal[1] * emaxs[1] + normal[2] * emins[2];
+				dist2 = normal[0] * emins[0] + normal[1] * emins[1] + normal[2] * emaxs[2];
 				break;
 			case 5 :
-				dist1 = p.normal[0] * emins[0] + p.normal[1] * emaxs[1] + p.normal[2] * emins[2];
-				dist2 = p.normal[0] * emaxs[0] + p.normal[1] * emins[1] + p.normal[2] * emaxs[2];
+				dist1 = normal[0] * emins[0] + normal[1] * emaxs[1] + normal[2] * emins[2];
+				dist2 = normal[0] * emaxs[0] + normal[1] * emins[1] + normal[2] * emaxs[2];
 				break;
 			case 6 :
-				dist1 = p.normal[0] * emaxs[0] + p.normal[1] * emins[1] + p.normal[2] * emins[2];
-				dist2 = p.normal[0] * emins[0] + p.normal[1] * emaxs[1] + p.normal[2] * emaxs[2];
+				dist1 = normal[0] * emaxs[0] + normal[1] * emins[1] + normal[2] * emins[2];
+				dist2 = normal[0] * emins[0] + normal[1] * emaxs[1] + normal[2] * emaxs[2];
 				break;
 			case 7 :
-				dist1 = p.normal[0] * emins[0] + p.normal[1] * emins[1] + p.normal[2] * emins[2];
-				dist2 = p.normal[0] * emaxs[0] + p.normal[1] * emaxs[1] + p.normal[2] * emaxs[2];
+				dist1 = normal[0] * emins[0] + normal[1] * emins[1] + normal[2] * emins[2];
+				dist2 = normal[0] * emaxs[0] + normal[1] * emaxs[1] + normal[2] * emaxs[2];
 				break;
 			default :
 				dist1 = dist2 = 0;

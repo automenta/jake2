@@ -25,7 +25,10 @@ package jake2.server;
 import jake2.Defines;
 import jake2.Globals;
 import jake2.game.*;
-import jake2.qcommon.*;
+import jake2.qcommon.CM;
+import jake2.qcommon.Com;
+import jake2.qcommon.MSG;
+import jake2.qcommon.SZ;
 import jake2.util.Math3D;
 
 public class SV_GAME {

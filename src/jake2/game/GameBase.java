@@ -26,13 +26,15 @@
 
 package jake2.game;
 
-import java.util.StringTokenizer;
-
-import jake2.*;
-import jake2.client.*;
+import jake2.Defines;
+import jake2.client.M;
 import jake2.qcommon.Com;
-import jake2.server.*;
-import jake2.util.*;
+import jake2.server.SV;
+import jake2.server.SV_WORLD;
+import jake2.util.Lib;
+import jake2.util.Math3D;
+
+import java.util.StringTokenizer;
 
 public class GameBase {
     public static final cplane_t dummyplane = new cplane_t();
