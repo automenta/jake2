@@ -44,34 +44,28 @@ public class QuakeFile extends RandomAccessFile {
 
     /** Writes a Vector to a RandomAccessFile. */
     public void writeVector(float v[]) throws IOException {
-        for (int n = 0; n < 3; n++)
-            writeFloat(v[n]);
+        writeFloat(v[0]);
+        writeFloat(v[1]);
+        writeFloat(v[2]);
     }
 
     /** Writes a Vector to a RandomAccessFile. */
-    public float[] readVector() throws IOException {
-        float res[] = { 0, 0, 0 };
-        for (int n = 0; n < 3; n++)
-            res[n] = readFloat();
-
-        return res;
+    public final float[] readVector() throws IOException {
+        return new float[] { readFloat(), readFloat(), readFloat() };
     }
 
     /** Reads a length specified string from a file. */
     public String readString() throws IOException {
         int len = readInt();
 
-        if (len == -1)
-            return null;
-
-        if (len == 0)
-            return "";
-
-        byte bb[] = new byte[len];
-
-        super.read(bb, 0, len);
-
-        return new String(bb, 0, len);
+        switch (len) {
+            case -1: return null;
+            case 0: return "";
+            default:
+                byte bb[] = new byte[len];
+                super.read(bb, 0, len);
+                return new String(bb, 0, len);
+        }
     }
 
     /** Writes a length specified string to a file. */
@@ -81,8 +75,9 @@ public class QuakeFile extends RandomAccessFile {
             return;
         }
 
-        writeInt(s.length());
-        if (s.length() != 0)
+        int l = s.length();
+        writeInt(l);
+        if (l != 0)
             writeBytes(s);
     }
 

@@ -49,13 +49,9 @@ class Unpack
 			return false;
 		}
 
-		if (!pattern.regionMatches(index, s, s.length() - remaining, remaining))
-		{
-			return false;
-		}
+        return pattern.regionMatches(index, s, s.length() - remaining, remaining);
 
-		return true;
-	}
+    }
 
 	static void usage()
 	{

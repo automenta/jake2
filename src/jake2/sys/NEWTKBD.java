@@ -106,7 +106,7 @@ final public class NEWTKBD extends KBD
 	// Different NEWT button numbering:
 	// BUTTON1(left) BUTTON2(center) BUTTON3(right)
 	// K_MOUSE1      K_MOUSE3        K_MOUSE2
-	private final int mouseEventToKey(MouseEvent ev) {
+	private static int mouseEventToKey(MouseEvent ev) {
 	    switch (ev.getButton()) {
 	    case MouseEvent.BUTTON3:
 	        return Key.K_MOUSE2;
@@ -201,7 +201,7 @@ final public class NEWTKBD extends KBD
 		Key.Event(key, down, Timer.Milliseconds());
 	}
 	
-	public void centerMouse() {
+	public static void centerMouse() {
 	    c.warpPointer(c.getWidth()/2, c.getHeight()/2);
 	}
 	

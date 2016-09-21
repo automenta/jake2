@@ -1,7 +1,7 @@
 /*
  * Jake2Applet.java
  * Copyright (C)  2008
- * 
+ *
  * $Id: Jake2Applet.java,v 1.2 2008-03-02 20:38:04 kbrussel Exp $
  */
 /*
@@ -64,7 +64,7 @@ public class Jake2Applet extends Applet {
             gameStarted = false;
         }
         if( EventQueue.isDispatchThread() ) { // Game thread offloads to AWT-EDT in Applet mode
-            new GameThread().start();            
+            new GameThread().start();
         } else {
             synchronized(gameLifecycleLock) {
                 new GameThread().start();
@@ -93,52 +93,53 @@ public class Jake2Applet extends Applet {
         }
         System.err.println("Jake2 Applet Stop.X: "+Thread.currentThread().getName());
     }
-    
+
     @Override
     public void destroy() {
         System.err.println("Jake2 Applet Destroy.0: "+Thread.currentThread().getName());
     }
-    
+
     class GameThread extends Thread {
         public GameThread() {
             super("Jake2 Game Thread");
         }
 
         public void run() {
+
+            Thread thread = Thread.currentThread();
+
             synchronized(gameLifecycleLock) {
                 // TODO: check if dedicated is set in config file
-        	
-                System.err.println("Jake2 Applet Game START: "+Thread.currentThread().getName());
-                
+
+                System.err.println("Jake2 Applet Game START: "+ thread.getName());
+
                 Globals.dedicated= Cvar.Get("dedicated", "0", Qcommon.CVAR_NOSET);
-        
+
                 // Set things up for applet execution
                 Globals.appletMode = true;
                 Globals.applet = Jake2Applet.this;
-                Globals.sizeChangeListener = new SizeChangeListener() {
-                        public void sizeChanged(int width, int height) {
-                            try {
-                                if (self == null) {
-                                    JSObject win = JSObject.getWindow(Jake2Applet.this);
-                                    self = (JSObject) win.eval("document.getElementById(\"" +
-                                                               getParameter("id") + "\")");
-                                }
-                                self.setMember("width", width);
-                                self.setMember("height", height);
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
+                Globals.sizeChangeListener = (width, height) -> {
+                    try {
+                        if (self == null) {
+                            JSObject win = JSObject.getWindow(Jake2Applet.this);
+                            self = (JSObject) win.eval("document.getElementById(\"" +
+                                                       getParameter("id") + "\")");
                         }
-                    };
-    
+                        self.setMember("width", width);
+                        self.setMember("height", height);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                };
+
                 // open the q2dialog, if we are not in dedicated mode.
                 if (Globals.dedicated.value != 1.0f) {
                     Jake2.initQ2DataTool();
                 }
-                
+
                 final int a_width = Jake2Applet.this.getWidth();
                 final int a_height = (int) ( a_width * 0.75f );
-    
+
                 final String cmd_args;
                 {
                     final String applet_args = getParameter("jake_args");
@@ -164,7 +165,7 @@ public class Jake2Applet extends Applet {
                 while( tokens.hasMoreTokens() ) {
                     c_args[i++] = tokens.nextToken().trim();
                 }
-                
+
                 Qcommon.Init(c_args);
                 if( Platform.OSType.MACOS == Platform.getOSType() ) {
                     // FIXME: Bug on OSX: 1st NewtCanvasAWT added .. causes flickering, so 'do it again'.
@@ -173,7 +174,7 @@ public class Jake2Applet extends Applet {
                     Qcommon.Init(c_args);
                 }
                 Globals.nostdout = Cvar.Get("nostdout", "0", 0);
-                
+
                 gameStarted = true;
                 gameLifecycleLock.notifyAll();
             }
@@ -195,7 +196,7 @@ public class Jake2Applet extends Applet {
                 t.printStackTrace();
             } finally {
                 synchronized(gameLifecycleLock) {
-                    System.err.println("Jake2 Applet Game STOP.0: "+Thread.currentThread().getName());
+                    System.err.println("Jake2 Applet Game STOP.0: "+ thread.getName());
                     try {
                         Cmd.ExecuteString("quit");
                     } catch (Exception e) {
@@ -205,7 +206,7 @@ public class Jake2Applet extends Applet {
                     gameShutDown = true;
                     gameStarted = false;
                     gameLifecycleLock.notifyAll();
-                    System.err.println("Jake2 Applet Game STOP.X: "+Thread.currentThread().getName());
+                    System.err.println("Jake2 Applet Game STOP.X: "+ thread.getName());
                 }
             }
         }

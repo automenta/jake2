@@ -73,7 +73,6 @@ public class GameMisc {
         game_import_t.linkentity(ent);
         ent.nextthink = GameBase.level.time + 0.5f;
         ent.think = TH_viewthing;
-        return;
     }
 
     /*
@@ -575,7 +574,6 @@ public class GameMisc {
         self.solid = Defines.SOLID_BSP;
         self.s.frame = 12;
         game_import_t.linkentity(self);
-        return;
     }
 
     public static void SP_target_string(edict_t self) {
@@ -627,7 +625,6 @@ public class GameMisc {
              * self.message[3] = '0'; if (self.message[6] == ' ')
              * self.message[6] = '0';
              */
-            return;
         }
     }
 

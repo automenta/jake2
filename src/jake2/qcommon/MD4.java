@@ -273,17 +273,17 @@ public class MD4 extends MessageDigest implements Cloneable {
 
 	// The basic MD4 atomic functions.
 
-	private int FF(int a, int b, int c, int d, int x, int s) {
+	private static int FF(int a, int b, int c, int d, int x, int s) {
 		int t = a + ((b & c) | (~b & d)) + x;
 		return t << s | t >>> (32 - s);
 	}
 	
-	private int GG(int a, int b, int c, int d, int x, int s) {
+	private static int GG(int a, int b, int c, int d, int x, int s) {
 		int t = a + ((b & (c | d)) | (c & d)) + x + 0x5A827999;
 		return t << s | t >>> (32 - s);
 	}
 	
-	private int HH(int a, int b, int c, int d, int x, int s) {
+	private static int HH(int a, int b, int c, int d, int x, int s) {
 		int t = a + (b ^ c ^ d) + x + 0x6ED9EBA1;
 		return t << s | t >>> (32 - s);
 	}

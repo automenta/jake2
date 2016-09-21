@@ -106,7 +106,7 @@ public final class JOALSoundImpl implements Sound {
 		return true;
 	}
 		
-	private void initOpenALExtensions() {
+	private static void initOpenALExtensions() {
 		if (al.alIsExtensionPresent("EAX2.0")) {
 			try {
 				eax = EAXFactory.getEAX();
@@ -137,11 +137,11 @@ public final class JOALSoundImpl implements Sound {
                 data, data.limit(), freq);
     }
 
-	private void checkError() {
+	private static void checkError() {
 		Com.DPrintf("AL Error: " + alErrorString() +'\n');
 	}
 	
-	private String alErrorString(){
+	private static String alErrorString(){
 		int error;
 		String message = "";
 		if ((error = al.alGetError()) != AL.AL_NO_ERROR) {
@@ -535,7 +535,7 @@ public final class JOALSoundImpl implements Sound {
 		}
 	}
 
-	void SoundList() {
+	static void SoundList() {
 		int i;
 		sfx_t sfx;
 		sfxcache_t sc;
@@ -565,7 +565,7 @@ public final class JOALSoundImpl implements Sound {
 		Com.Printf("Total resident: " + total + '\n');
 	}
 	
-	void SoundInfo_f() {
+	static void SoundInfo_f() {
 		Com.Printf("%5d stereo\n", new Vargs(1).add(1));
 		Com.Printf("%5d samples\n", new Vargs(1).add(22050));
 		Com.Printf("%5d samplebits\n", new Vargs(1).add(16));

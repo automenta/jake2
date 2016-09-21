@@ -41,6 +41,7 @@ import jake2.util.QuakeFile;
 import java.io.RandomAccessFile;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.regex.Pattern;
 
 /**
  * Menu
@@ -54,6 +55,7 @@ abstract class keyfunc_t {
 
 public final class Menu extends Key {
 
+    private static final Pattern NEWLINE = Pattern.compile("\r\n");
     static int m_main_cursor;
 
     static final int NUM_CURSOR_FRAMES = 15;
@@ -126,11 +128,11 @@ public final class Menu extends Key {
 
         mcallback callback;
 
-        mcallback statusbarfunc;
+        final mcallback statusbarfunc = null;
 
         mcallback ownerdraw;
 
-        mcallback cursordraw;
+        final mcallback cursordraw = null;
     }
 
     static class menufield_s extends menucommon_s {
@@ -1403,7 +1405,6 @@ public final class Menu extends Key {
 
         if (driverNotChanged) {
             re.EndFrame();
-            return;
         } else {
         	Cvar.Set("s_impl", current);
         	
@@ -1905,7 +1906,7 @@ public final class Menu extends Key {
 
         if (b != null) {
             creditsBuffer = new String(b);
-            String line[] = creditsBuffer.split("\r\n");
+            String line[] = NEWLINE.split(creditsBuffer);
 
             for (n = 0; n < line.length; n++) {
                 creditsIndex[n] = line[n];
@@ -2717,7 +2718,7 @@ public final class Menu extends Key {
         }
 
         s = new String(buffer);
-        String lines[] = s.split("\r\n");
+        String lines[] = NEWLINE.split(s);
 
         nummaps = lines.length;
 
@@ -3931,11 +3932,7 @@ public final class Menu extends Key {
         }
 
         //qsort(s_pmi, s_numplayermodels, sizeof(s_pmi[0]), pmicmpfnc);
-        Arrays.sort(s_pmi, 0, s_numplayermodels, new Comparator() {
-            public int compare(Object o1, Object o2) {
-                return pmicmpfnc(o1, o2);
-            }
-        });
+        Arrays.sort(s_pmi, 0, s_numplayermodels, (o1, o2) -> pmicmpfnc(o1, o2));
 
         //memset(s_pmnames, 0, sizeof(s_pmnames));
         s_pmnames = new String[MAX_PLAYERMODELS];
@@ -4469,7 +4466,7 @@ public final class Menu extends Key {
 
             if ((cbd = Sys.GetClipboardData()) != null) {
                 //strtok(cbd, "\n\r\b");
-                String lines[] = cbd.split("\r\n");
+                String lines[] = NEWLINE.split(cbd);
                 if (lines.length > 0 && lines[0].length() != 0) {
                     //strncpy(f.buffer, cbd, f.length - 1);
                     f.buffer = new StringBuffer(lines[0]);

@@ -38,10 +38,10 @@ public class glstate_t
 	public int currenttmu;
 
 	public float camera_separation;
-	public boolean stereo_enabled;
+	public final boolean stereo_enabled = false;
 
-	public byte originalRedGammaTable[]= new byte [256];
-	public byte originalGreenGammaTable[]= new byte [256];
-	public byte originalBlueGammaTable[]= new byte [256];
+//	public byte originalRedGammaTable[]= new byte [256];
+//	public byte originalGreenGammaTable[]= new byte [256];
+//	public byte originalBlueGammaTable[]= new byte [256];
 
 }

@@ -602,7 +602,6 @@ public class M_Flipper {
                         Defines.ATTN_NORM, 0);
                 self.monsterinfo.currentmove = flipper_move_pain2;
             }
-            return;
         }
     };
 

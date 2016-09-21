@@ -65,16 +65,18 @@ public class AdapterRegister {
 			return ("t0, id = " + myid);
 		}
 		  
-	};
-	// any stupid adapter
+	}
+
+    // any stupid adapter
 	static class t1 extends t0
 	{
 		public String test()
 		{
 			return ("t1, id = " + myid);
 		}
-	};
-	// second adapter
+	}
+
+    // second adapter
 	static class t2 extends t0
 	{
 		public String test(int x)

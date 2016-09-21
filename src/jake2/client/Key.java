@@ -712,8 +712,7 @@ public class Key extends Globals {
 		key_linepos = bytes.length + 2;
 		key_lines[edit_line][key_linepos++] = ' ';
 		key_lines[edit_line][key_linepos] = 0;
-		
-		return;
+
 	}
 
 	public static final xcommand_t Bind_f = new xcommand_t() {

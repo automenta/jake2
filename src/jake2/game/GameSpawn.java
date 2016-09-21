@@ -394,7 +394,6 @@ public class GameSpawn {
             GameUtil.G_ClearEdict(ent);
         }
 
-        return;
     }
 
     /**

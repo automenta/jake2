@@ -173,7 +173,7 @@ public class DummyRenderer implements refexport_t {
 	 * @see jake2.client.refexport_t#getModeList()
 	 */
 	public List<MonitorMode> getModeList() {
-		return new ArrayList<MonitorMode>();
+		return new ArrayList<>();
 	}
 
 	/* (non-Javadoc)

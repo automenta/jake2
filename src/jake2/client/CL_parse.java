@@ -471,7 +471,6 @@ public class CL_parse {
             ci.icon = null;
             ci.model = null;
             ci.weaponmodel[0] = null;
-            return;
         }
     }
 

@@ -54,8 +54,7 @@ public class mmove_t {
 		else 
 		{
 			f. writeInt(frame.length);
-			for (int n=0; n < frame.length; n++)
-				frame[n].write(f);
+			for (mframe_t aFrame : frame) aFrame.write(f);
 		}
 		f.writeAdapter(endfunc);
 	}

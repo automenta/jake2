@@ -72,9 +72,9 @@ public abstract class Image extends Main {
     // mipmap);
     //
 
-    final int gl_solid_format = 3;
+    static final int gl_solid_format = 3;
 
-    final int gl_alpha_format = 4;
+    static final int gl_alpha_format = 4;
 
     int gl_tex_solid_format = 3;
 
@@ -457,7 +457,7 @@ public abstract class Image extends Main {
     /*
      * ============== LoadPCX ==============
      */
-    byte[] LoadPCX(String filename, byte[][] palette, Dimension dim) {
+    static byte[] LoadPCX(String filename, byte[][] palette, Dimension dim) {
         qfiles.pcx_t pcx;
 
         //
@@ -540,7 +540,7 @@ public abstract class Image extends Main {
     /*
      * ============= LoadTGA =============
      */
-    byte[] LoadTGA(String name, Dimension dim) {
+    static byte[] LoadTGA(String name, Dimension dim) {
         int columns, rows, numPixels;
         int pixbuf; // index into pic
         int row, column;
@@ -769,7 +769,7 @@ public abstract class Image extends Main {
 
     // TODO check this: R_FloodFillSkin( byte[] skin, int skinwidth, int
     // skinheight)
-    void R_FloodFillSkin(byte[] skin, int skinwidth, int skinheight) {
+    static void R_FloodFillSkin(byte[] skin, int skinwidth, int skinheight) {
         //		byte fillcolor = *skin; // assume this is the pixel to fill
         int fillcolor = skin[0] & 0xff;
         int inpt = 0, outpt = 0;
@@ -876,8 +876,8 @@ public abstract class Image extends Main {
      * ================ GL_ResampleTexture ================
      */
     // cwei :-)
-    void GL_ResampleTexture(int[] in, int inwidth, int inheight, int[] out,
-            int outwidth, int outheight) {
+    static void GL_ResampleTexture(int[] in, int inwidth, int inheight, int[] out,
+                                   int outwidth, int outheight) {
         //		int i, j;
         //		unsigned *inrow, *inrow2;
         //		int frac, fracstep;
@@ -992,7 +992,7 @@ public abstract class Image extends Main {
      * 
      * Operates in place, quartering the size of the texture ================
      */
-    void GL_MipMap(int[] in, int width, int height) {
+    static void GL_MipMap(int[] in, int width, int height) {
         int i, j;
         int[] out;
 

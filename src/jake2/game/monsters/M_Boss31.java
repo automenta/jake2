@@ -752,7 +752,6 @@ public class M_Boss31 {
             self.s.sound = 0;
             self.count = 0;
             self.monsterinfo.currentmove = jorg_move_death;
-            return;
         }
     };
 

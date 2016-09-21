@@ -354,7 +354,7 @@ public class TestRenderer {
         re.RenderFrame(refdef);
     }
     
-    private LinkedList active_particles = new LinkedList();
+    private final Deque<cparticle_t> active_particles = new ArrayDeque<>();
     
     private boolean explode = false;
     
@@ -364,7 +364,7 @@ public class TestRenderer {
         
         r_numparticles = 0;
         
-        if (active_particles.size() == 0) {
+        if (active_particles.isEmpty()) {
             if (explode)
                 Explosion(target);
             else {

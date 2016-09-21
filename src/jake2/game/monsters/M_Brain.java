@@ -732,7 +732,6 @@ public class M_Brain {
 
             self.monsterinfo.pausetime = GameBase.level.time + eta + 0.5f;
             self.monsterinfo.currentmove = brain_move_duck;
-            return;
         }
     };
 

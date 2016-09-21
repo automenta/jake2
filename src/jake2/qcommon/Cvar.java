@@ -234,13 +234,16 @@ public class Cvar extends Globals {
             }
 
             if (c == 4) {
-                if (Cmd.Argv(3).equals("u"))
-                    flags = CVAR_USERINFO;
-                else if (Cmd.Argv(3).equals("s"))
-                    flags = CVAR_SERVERINFO;
-                else {
-                    Com.Printf("flags can only be 'u' or 's'\n");
-                    return;
+                switch (Cmd.Argv(3)) {
+                    case "u":
+                        flags = CVAR_USERINFO;
+                        break;
+                    case "s":
+                        flags = CVAR_SERVERINFO;
+                        break;
+                    default:
+                        Com.Printf("flags can only be 'u' or 's'\n");
+                        return;
                 }
                 Cvar.FullSet(Cmd.Argv(1), Cmd.Argv(2), flags);
             } else

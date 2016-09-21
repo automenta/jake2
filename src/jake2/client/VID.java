@@ -190,11 +190,11 @@ public class VID extends Globals {
 		boolean found = false;
 		
 		String[] driverNames = Renderer.getDriverNames();
-		for (int i = 0; i < driverNames.length; i++) {
-			if (driverNames[i].equals(name)) {
+		for (String driverName : driverNames) {
+			if (driverName.equals(name)) {
 				found = true;
 				break;
-			} 	
+			}
 		}
 
 		if (!found) {
@@ -491,9 +491,9 @@ public class VID extends Globals {
 
 	static void initModeList() {
 	        final List<MonitorMode> modes = re.getModeList();
-                final ArrayList<String> fs_resolutions_list = new ArrayList<String>();
-                final ArrayList<vidmode_t> fs_modes_list = new ArrayList<vidmode_t>();
-                final HashSet<DimensionImmutable> resSet = new HashSet<DimensionImmutable>();
+                final ArrayList<String> fs_resolutions_list = new ArrayList<>();
+                final ArrayList<vidmode_t> fs_modes_list = new ArrayList<>();
+                final HashSet<DimensionImmutable> resSet = new HashSet<>();
 		for (int i = 0; i < modes.size(); i++) {
 		    final MonitorMode mm = modes.get(modes.size() - 1 - i); // reverse order: low -> high res.
                     final SurfaceSize ss = mm.getSurfaceSize();

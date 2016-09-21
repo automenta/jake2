@@ -2942,8 +2942,7 @@ public class PrintfFormat {
 						variablePrecision = true;
 						precisionSet = true;
 					}
-					return;
-				} else {
+                } else {
 					while (pos < fmt.length()) {
 						char c = fmt.charAt(pos);
 						if (Character.isDigit(c))

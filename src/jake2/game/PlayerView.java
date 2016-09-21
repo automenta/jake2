@@ -532,7 +532,6 @@ public class PlayerView {
                         Globals.vec3_origin, damage, 0, 0, Defines.MOD_FALLING);
         } else {
             ent.s.event = Defines.EV_FALLSHORT;
-            return;
         }
     }
 

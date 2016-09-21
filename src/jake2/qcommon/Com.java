@@ -417,7 +417,7 @@ public final class Com
 
 	public static String sprintf(String fmt, Vargs vargs)
 	{
-		String msg= "";
+		String msg;
 		if (vargs == null || vargs.size() == 0)
 		{
 			msg= fmt;

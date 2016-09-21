@@ -33,6 +33,8 @@ import java.io.*;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.channels.FileChannel;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
 import java.util.regex.Pattern;
 
@@ -307,8 +309,10 @@ public final class FS extends Globals {
         return null;
     }
 
-    // read in blocks of 64k
-    public static final int MAX_READ = 0x10000;
+
+    public static final int MAX_READ =
+            //0x10000; //64k
+            1024*1024; //1024k
 
     /**
      * Read
@@ -368,6 +372,7 @@ public final class FS extends Globals {
             return null;
 
         try {
+
             file = FOpenFile(path);
             //Read(buf = new byte[len], len, h);
             buf = new byte[len];
@@ -492,7 +497,7 @@ public final class FS extends Globals {
      * FreeFile
      */
     public static void FreeFile(byte[] buffer) {
-        buffer = null;
+        //buffer = null;
     }
 
     static final int IDPAKHEADER = (('K' << 24) + ('C' << 16) + ('A' << 8) + 'P');

@@ -18,9 +18,9 @@ public class Q2DataTool {
     static final String dataDir = home + sep + "Jake2";
     static final String baseq2Dir = dataDir + sep + "baseq2";
 
-    private final Vector<String> mirrorNames = new Vector<String>();
-    private final Vector<String> mirrorLinks = new Vector<String>();
-    private final byte[] buf = new byte[8192];
+    private final Vector<String> mirrorNames = new Vector<>();
+    private final Vector<String> mirrorLinks = new Vector<>();
+    private final byte[] buf = new byte[64*1024];
 
     public void testQ2Data() {
         initMirrors();

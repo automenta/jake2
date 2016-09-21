@@ -25,6 +25,7 @@ package jake2.game;
 import jake2.qcommon.Com;
 
 import java.util.Hashtable;
+import java.util.concurrent.ConcurrentHashMap;
 
 public abstract class SuperAdapter {
 
@@ -39,11 +40,11 @@ public abstract class SuperAdapter {
 	}
 
 	/** Adapter repository. */
-	private static final Hashtable adapters= new Hashtable();
+	private static final ConcurrentHashMap<String,SuperAdapter> adapters= new ConcurrentHashMap();
 
 	/** Returns the adapter from the repository given by its ID. */
 	public static SuperAdapter getFromID(String key) {
-		SuperAdapter sa= (SuperAdapter) adapters.get(key);
+		SuperAdapter sa= adapters.get(key);
 
 		// try to create the adapter
 		if (sa == null) {

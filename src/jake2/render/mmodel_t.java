@@ -30,6 +30,6 @@ public class mmodel_t
 	public final float[] origin = { 0, 0, 0 }; // for sounds or lights
 	public float radius;
 	public int headnode;
-	public int visleafs; // not including the solid leaf 0
+	public final int visleafs = 0; // not including the solid leaf 0
 	public int firstface, numfaces;
 }

@@ -121,8 +121,8 @@ public class CL_fx {
 	 */
 	static void ClearDlights() {
 		//		memset (cl_dlights, 0, sizeof(cl_dlights));
-		for (int i = 0; i < cl_dlights.length; i++) {
-			cl_dlights[i].clear();
+		for (cdlight_t cl_dlight : cl_dlights) {
+			cl_dlight.clear();
 		}
 	}
 
@@ -131,8 +131,7 @@ public class CL_fx {
 	 */
 	static void ClearLightStyles() {
 		//memset (cl_lightstyle, 0, sizeof(cl_lightstyle));
-		for (int i = 0; i < cl_lightstyle.length; i++)
-			cl_lightstyle[i].clear();
+		for (clightstyle_t aCl_lightstyle : cl_lightstyle) aCl_lightstyle.clear();
 		lastofs = -1;
 	}
 
@@ -147,8 +146,8 @@ public class CL_fx {
 			return;
 		lastofs = ofs;
 
-		for (int i = 0; i < cl_lightstyle.length; i++) {
-			ls = cl_lightstyle[i];
+		for (clightstyle_t aCl_lightstyle : cl_lightstyle) {
+			ls = aCl_lightstyle;
 			if (ls.length == 0) {
 				ls.value[0] = ls.value[1] = ls.value[2] = 1.0f;
 				continue;

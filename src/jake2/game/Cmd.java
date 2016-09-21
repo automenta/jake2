@@ -162,20 +162,18 @@ public final class Cmd {
 
     private static final char[] temporary = new char[Defines.MAX_STRING_CHARS];
 
-    public static final Comparator PlayerSort = new Comparator() {
-        public int compare(Object o1, Object o2) {
-            int anum = (Integer) o1;
-            int bnum = (Integer) o2;
-    
-            int anum1 = GameBase.game.clients[anum].ps.stats[Defines.STAT_FRAGS];
-            int bnum1 = GameBase.game.clients[bnum].ps.stats[Defines.STAT_FRAGS];
-    
-            if (anum1 < bnum1)
-                return -1;
-            if (anum1 > bnum1)
-                return 1;
-            return 0;
-        }
+    public static final Comparator PlayerSort = (o1, o2) -> {
+        int anum = (Integer) o1;
+        int bnum = (Integer) o2;
+
+        int anum1 = GameBase.game.clients[anum].ps.stats[Defines.STAT_FRAGS];
+        int bnum1 = GameBase.game.clients[bnum].ps.stats[Defines.STAT_FRAGS];
+
+        if (anum1 < bnum1)
+            return -1;
+        if (anum1 > bnum1)
+            return 1;
+        return 0;
     };
 
     /** 
@@ -1228,56 +1226,82 @@ public final class Cmd {
     
         if (GameBase.level.intermissiontime != 0)
             return;
-    
-        if (cmd.equals("use"))
-            Use_f(ent);
-        else if (cmd.equals("drop"))
-            Drop_f(ent);
-        else if (cmd.equals("give"))
-            Give_f(ent);
-        else if (cmd.equals("god"))
-            God_f(ent);
-        else if (cmd.equals("notarget"))
-            Notarget_f(ent);
-        else if (cmd.equals("noclip"))
-            Noclip_f(ent);
-        else if (cmd.equals("inven"))
-            Inven_f(ent);
-        else if (cmd.equals("invnext"))
-            GameItems.SelectNextItem(ent, -1);
-        else if (cmd.equals("invprev"))
-            GameItems.SelectPrevItem(ent, -1);
-        else if (cmd.equals("invnextw"))
-            GameItems.SelectNextItem(ent, Defines.IT_WEAPON);
-        else if (cmd.equals("invprevw"))
-            GameItems.SelectPrevItem(ent, Defines.IT_WEAPON);
-        else if (cmd.equals("invnextp"))
-            GameItems.SelectNextItem(ent, Defines.IT_POWERUP);
-        else if (cmd.equals("invprevp"))
-            GameItems.SelectPrevItem(ent, Defines.IT_POWERUP);
-        else if (cmd.equals("invuse"))
-            InvUse_f(ent);
-        else if (cmd.equals("invdrop"))
-            InvDrop_f(ent);
-        else if (cmd.equals("weapprev"))
-            WeapPrev_f(ent);
-        else if (cmd.equals("weapnext"))
-            WeapNext_f(ent);
-        else if (cmd.equals("weaplast"))
-            WeapLast_f(ent);
-        else if (cmd.equals("kill"))
-            Kill_f(ent);
-        else if (cmd.equals("putaway"))
-            PutAway_f(ent);
-        else if (cmd.equals("wave"))
-            Wave_f(ent);
-        else if (cmd.equals("playerlist"))
-            PlayerList_f(ent);
-        else if (cmd.equals("showposition"))
-            ShowPosition_f(ent);
-        else
-            // anything that doesn't match a command will be a chat
-            Say_f(ent, false, true);
+
+        switch (cmd) {
+            case "use":
+                Use_f(ent);
+                break;
+            case "drop":
+                Drop_f(ent);
+                break;
+            case "give":
+                Give_f(ent);
+                break;
+            case "god":
+                God_f(ent);
+                break;
+            case "notarget":
+                Notarget_f(ent);
+                break;
+            case "noclip":
+                Noclip_f(ent);
+                break;
+            case "inven":
+                Inven_f(ent);
+                break;
+            case "invnext":
+                GameItems.SelectNextItem(ent, -1);
+                break;
+            case "invprev":
+                GameItems.SelectPrevItem(ent, -1);
+                break;
+            case "invnextw":
+                GameItems.SelectNextItem(ent, Defines.IT_WEAPON);
+                break;
+            case "invprevw":
+                GameItems.SelectPrevItem(ent, Defines.IT_WEAPON);
+                break;
+            case "invnextp":
+                GameItems.SelectNextItem(ent, Defines.IT_POWERUP);
+                break;
+            case "invprevp":
+                GameItems.SelectPrevItem(ent, Defines.IT_POWERUP);
+                break;
+            case "invuse":
+                InvUse_f(ent);
+                break;
+            case "invdrop":
+                InvDrop_f(ent);
+                break;
+            case "weapprev":
+                WeapPrev_f(ent);
+                break;
+            case "weapnext":
+                WeapNext_f(ent);
+                break;
+            case "weaplast":
+                WeapLast_f(ent);
+                break;
+            case "kill":
+                Kill_f(ent);
+                break;
+            case "putaway":
+                PutAway_f(ent);
+                break;
+            case "wave":
+                Wave_f(ent);
+                break;
+            case "playerlist":
+                PlayerList_f(ent);
+                break;
+            case "showposition":
+                ShowPosition_f(ent);
+                break;
+            default:
+                // anything that doesn't match a command will be a chat
+                Say_f(ent, false, true);
+                break;
+        }
     }
 
     public static void ValidateSelectedItem(edict_t ent) {    	

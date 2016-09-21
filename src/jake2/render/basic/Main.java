@@ -53,8 +53,8 @@ public abstract class Main extends Base {
 
 	public static final int[] d_8to24table = new int[256];
 
-	int c_visible_lightmaps;
-	int c_visible_textures;
+	final int c_visible_lightmaps = 0;
+	final int c_visible_textures = 0;
 
 	int registration_sequence;
 
@@ -600,7 +600,7 @@ public abstract class Main extends Base {
 
 	// =======================================================================
 
-	int SignbitsForPlane(cplane_t out) {
+	static int SignbitsForPlane(cplane_t out) {
 		// for fast box on planeside test
 		int bits = 0;
 		for (int j = 0; j < 3; j++) {

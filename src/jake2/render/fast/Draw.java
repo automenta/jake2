@@ -253,6 +253,7 @@ public abstract class Draw extends Image {
 
 		int color = d_8to24table[colorIndex]; 
 
+
 		gl.glColor3ub(
 			(byte)((color >> 0) & 0xff), // r
 			(byte)((color >> 8) & 0xff), // g

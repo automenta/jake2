@@ -134,7 +134,7 @@ public class Lib {
 	}
 
 	/** Converts memory to a memory dump string. */
-	public static String hexdumpfile(ByteBuffer bb, int len) throws IOException {
+	public static String hexdumpfile(ByteBuffer bb, int len) {
 	
 		ByteBuffer bb1 = bb.slice();
 	

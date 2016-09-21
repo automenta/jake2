@@ -39,7 +39,7 @@ public class Renderer {
     static final RenderAPI fastRenderer = new jake2.render.fast.Misc();
     static final RenderAPI basicRenderer = new jake2.render.basic.Misc();
 
-    static final Vector<Ref> drivers = new Vector<Ref>(4);
+    static final Vector<Ref> drivers = new Vector<>(4);
 
     static {
         try {
@@ -109,8 +109,8 @@ public class Renderer {
         // find a driver
         Ref driver = null;
         int count = drivers.size();
-        for (int i = 0; i < count; i++) {
-            driver = drivers.get(i);
+        for (Ref driver1 : drivers) {
+            driver = driver1;
             if (driver.getName().equals(driverName)) {
                 return driver.GetRefAPI((fast) ? fastRenderer : basicRenderer);
             }

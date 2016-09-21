@@ -888,7 +888,6 @@ public final class CL {
             {
                 Com.Printf("\nServer connection timed out.\n");
                 Disconnect();
-                return;
             }
         } else
             Globals.cl.timeoutcount = 0;
@@ -1587,7 +1586,9 @@ public final class CL {
 
         Console.Init(); //ok
 
-        S.Init(); //empty
+        new Thread(()->{
+            S.Init(); //empty
+        }).start();
         VID.Init();
 
         V.Init();

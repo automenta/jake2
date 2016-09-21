@@ -51,7 +51,7 @@ public class client_static_t {
 	public String servername = ""; // name of server from original connect
 	public float connect_time; // for connection retransmits
 
-	int quakePort; // a 16 bit value that allows quake servers
+	final int quakePort = 0; // a 16 bit value that allows quake servers
 	// to work around address translating routers
 	public final netchan_t netchan = new netchan_t();
 	public int serverProtocol; // in case we are doing some kind of version hack

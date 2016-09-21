@@ -101,8 +101,8 @@ public class S {
 	public static void useDriver(String driverName) {
 		Sound driver = null;
 		int count = drivers.size();
-		for (int i = 0; i < count; i++) {
-			driver = (Sound) drivers.get(i);
+		for (Object driver1 : drivers) {
+			driver = (Sound) driver1;
 			if (driver.getName().equals(driverName)) {
 				impl = driver;
 				return;

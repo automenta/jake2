@@ -102,11 +102,7 @@ public class game_import_t {
         return SV_WORLD.SV_Trace(start, mins, maxs, end, passent, contentmask);
     }
 
-    public pmove_t.PointContentsAdapter pointcontents = new pmove_t.PointContentsAdapter() {
-        public int pointcontents(float[] o) {
-            return 0;
-        }
-    };
+    public pmove_t.PointContentsAdapter pointcontents = new MyPointContentsAdapter();
 
     public static boolean inPHS(float[] p1, float[] p2) {
         return SV_GAME.PF_inPHS(p1, p2);
@@ -209,4 +205,9 @@ public class game_import_t {
         Cbuf.AddText(text);
     }
 
+    private static class MyPointContentsAdapter extends pmove_t.PointContentsAdapter {
+        public int pointcontents(float[] o) {
+            return 0;
+        }
+    }
 }

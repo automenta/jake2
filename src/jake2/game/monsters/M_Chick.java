@@ -891,7 +891,6 @@ public class M_Chick {
                 self.monsterinfo.currentmove = chick_move_pain2;
             else
                 self.monsterinfo.currentmove = chick_move_pain3;
-            return;
         }
     };
 
@@ -1058,7 +1057,6 @@ public class M_Chick {
                 self.enemy = attacker;
 
             self.monsterinfo.currentmove = chick_move_duck;
-            return;
         }
     };
 

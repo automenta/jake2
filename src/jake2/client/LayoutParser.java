@@ -117,12 +117,11 @@ final class LayoutParser {
         }
 
         tokenLength = len;
-        return;
     }
 
     public boolean tokenEquals(String other) {
         int len = this.tokenLength;
-        return len != other.length() ? false : data.regionMatches(tokenPos, other, 0, len);
+        return len == other.length() && data.regionMatches(tokenPos, other, 0, len);
     }
 
     public int tokenAsInt() {

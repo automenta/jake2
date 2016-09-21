@@ -313,22 +313,17 @@ public class CL_tent {
      */
     static void ClearTEnts() {
         //		memset (cl_beams, 0, sizeof(cl_beams));
-        for (int i = 0; i < cl_beams.length; i++)
-            cl_beams[i].clear();
+        for (beam_t cl_beam : cl_beams) cl_beam.clear();
         //		memset (cl_explosions, 0, sizeof(cl_explosions));
-        for (int i = 0; i < cl_explosions.length; i++)
-            cl_explosions[i].clear();
+        for (explosion_t cl_explosion : cl_explosions) cl_explosion.clear();
         //		memset (cl_lasers, 0, sizeof(cl_lasers));
-        for (int i = 0; i < cl_lasers.length; i++)
-            cl_lasers[i].clear();
+        for (laser_t cl_laser : cl_lasers) cl_laser.clear();
         //
         //	  ROGUE
         //		memset (cl_playerbeams, 0, sizeof(cl_playerbeams));
-        for (int i = 0; i < cl_playerbeams.length; i++)
-            cl_playerbeams[i].clear();
+        for (beam_t cl_playerbeam : cl_playerbeams) cl_playerbeam.clear();
         //		memset (cl_sustains, 0, sizeof(cl_sustains));
-        for (int i = 0; i < cl_sustains.length; i++)
-            cl_sustains[i].clear();
+        for (cl_sustain_t cl_sustain : cl_sustains) cl_sustain.clear();
         //	  ROGUE
     }
 

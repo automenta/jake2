@@ -45,7 +45,7 @@ public final class IN extends Globals {
 
     static boolean ignorefirst = false;
 
-    static int mouse_buttonstate;
+    static final int mouse_buttonstate = 0;
 
     static int mouse_oldbuttonstate;
 

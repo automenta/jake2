@@ -129,8 +129,8 @@ public final class Cbuf {
         if (ret)
             Cbuf.AddText(build);
 
-        text = null;
-        build = null;
+//        text = null;
+//        build = null;
 
         return ret;
     }

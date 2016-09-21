@@ -29,6 +29,9 @@ import com.jogamp.newt.event.*;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedDeque;
+import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * InputListener
@@ -36,27 +39,21 @@ import java.util.Deque;
 public final class InputListener implements KeyListener, MouseListener, WindowListener {
 
 	// modifications of eventQueue must be thread safe!
-	private static final Deque<Jake2InputEvent> eventQueue = new ArrayDeque<Jake2InputEvent>();
+	private static final Queue<Jake2InputEvent> eventQueue = new LinkedBlockingQueue();
 
 	static void addEvent(Jake2InputEvent ev) {
-		synchronized (eventQueue) {
-			eventQueue.addLast(ev);
-		}
+		eventQueue.add(ev);
 	}
 
 	static Jake2InputEvent nextEvent() {
-    		Jake2InputEvent ev;
-    		synchronized (eventQueue) {
-    			ev = (!eventQueue.isEmpty())? eventQueue.removeFirst() :null;
-    		}
-    		return ev;
+		return eventQueue.poll();
 	}
 
         @Override
 	public void keyPressed(KeyEvent e) {
-            if( !e.isAutoRepeat() ) {
-                addEvent(new Jake2InputEvent(Jake2InputEvent.KeyPress, e));
-            }
+		if( !e.isAutoRepeat() ) {
+			addEvent(new Jake2InputEvent(Jake2InputEvent.KeyPress, e));
+		}
 	}
 
         @Override

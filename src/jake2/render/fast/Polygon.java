@@ -30,6 +30,7 @@ import jake2.util.Lib;
 
 import java.nio.FloatBuffer;
 
+
 /**
  * Polygon
  * 
@@ -73,7 +74,8 @@ public final class Polygon extends glpoly_t {
     }
 
     static FloatBuffer getInterleavedBuffer() {
-        return buffer.rewind();
+        buffer.rewind();
+        return buffer;
     }
 
     private Polygon() {

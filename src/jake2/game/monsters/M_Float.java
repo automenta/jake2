@@ -1151,7 +1151,6 @@ public class M_Float {
                         Defines.ATTN_NORM, 0);
                 self.monsterinfo.currentmove = floater_move_pain2;
             }
-            return;
         }
     };
 

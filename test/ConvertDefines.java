@@ -62,10 +62,8 @@ public class ConvertDefines
 			}
 			else
 				filename= args[0];
-				
-			if (filename.startsWith("jake2/game/M_"))
-				m_doc = true;
-			else m_doc = false;
+
+            m_doc = filename.startsWith("jake2/game/M_");
 
 			FileWriter fw= new FileWriter(filename + ".new");
 			FileReader fr= new FileReader(filename);

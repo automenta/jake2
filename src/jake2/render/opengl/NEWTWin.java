@@ -71,7 +71,7 @@ public class NEWTWin {
         return sml.get(0);
     }
 
-    public String getModeString(MonitorMode mm) {
+    public static String getModeString(MonitorMode mm) {
         final SurfaceSize ss = mm.getSurfaceSize();
         final DimensionImmutable m = ss.getResolution();
         final StringBuilder sb = new StringBuilder();
@@ -176,21 +176,20 @@ public class NEWTWin {
             
             final NewtCanvasAWT newtCanvasAWT = new NewtCanvasAWT(window);
             final java.applet.Applet applet = (java.applet.Applet) Globals.applet;
-            final Runnable appletAddAction = new Runnable() {
-                public void run() {
-                    applet.add(newtCanvasAWT, java.awt.BorderLayout.CENTER);
-                    applet.validate();
-                    newtCanvasAWT.setFocusable(true);
-                    newtCanvasAWT.requestFocus();
-                    if( Platform.OSType.MACOS == Platform.getOSType() && newtCanvasAWT.isOffscreenLayerSurfaceEnabled() ) {
-                        System.err.println("XXX Relayout");
-                        // force relayout
-                        final int cW = newtCanvasAWT.getWidth();
-                        final int cH = newtCanvasAWT.getHeight();
-                        newtCanvasAWT.setSize(cW+1, cH+1);
-                        newtCanvasAWT.setSize(cW, cH);
-                    }
-                } };
+            final Runnable appletAddAction = () -> {
+                applet.add(newtCanvasAWT, java.awt.BorderLayout.CENTER);
+                applet.validate();
+                newtCanvasAWT.setFocusable(true);
+                newtCanvasAWT.requestFocus();
+                if( Platform.OSType.MACOS == Platform.getOSType() && newtCanvasAWT.isOffscreenLayerSurfaceEnabled() ) {
+                    System.err.println("XXX Relayout");
+                    // force relayout
+                    final int cW = newtCanvasAWT.getWidth();
+                    final int cH = newtCanvasAWT.getHeight();
+                    newtCanvasAWT.setSize(cW+1, cH+1);
+                    newtCanvasAWT.setSize(cW, cH);
+                }
+            };
                 if( java.awt.EventQueue.isDispatchThread() ) {
                     System.err.println("XXX Adding on AWT EDT - same thread");
                     appletAddAction.run();
@@ -346,11 +345,10 @@ public class NEWTWin {
             if( null != Globals.applet && null != newtCanvasObject ) {
                 final java.applet.Applet applet = (java.applet.Applet) Globals.applet;
                 final NewtCanvasAWT newtCanvasAWT = (NewtCanvasAWT) newtCanvasObject;
-                final Runnable appletRemoveAction = new Runnable() {
-                    public void run() {
-                        applet.remove(newtCanvasAWT);
-                        applet.validate();
-                    } };
+                final Runnable appletRemoveAction = () -> {
+                    applet.remove(newtCanvasAWT);
+                    applet.validate();
+                };
                     if( java.awt.EventQueue.isDispatchThread() ) {
                         appletRemoveAction.run();
                     } else {

@@ -59,7 +59,7 @@ public class Channel {
 	private static final int[] sources = new int[MAX_CHANNELS];
 	// a reference of JOALSoundImpl.buffers 
 	private static int[] buffers;
-	private static final Map <Integer, Channel> looptable = new Hashtable <Integer, Channel> (MAX_CHANNELS);
+	private static final Map <Integer, Channel> looptable = new Hashtable<>(MAX_CHANNELS);
 
 	private static int numChannels; 
 
@@ -181,8 +181,7 @@ public class Channel {
     static void disableStreaming() {
         if (!streamingEnabled) return;
         unqueueStreams();
-        int source = channels[numChannels].sourceId;
-        al.alSourcei (source, AL.AL_SOURCE_RELATIVE,  AL.AL_FALSE);
+		al.alSourcei (channels[numChannels].sourceId, AL.AL_SOURCE_RELATIVE,  AL.AL_FALSE);
 
         // free the last source
         numChannels++;

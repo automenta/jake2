@@ -100,13 +100,13 @@ public class PlaySound {
     
     static PlaySound nextPlayableSound() {
         PlaySound ps = null;
-        while (true) {
+        //while (true) {
             ps = playableList.next;
             if (ps == playableList || ps.beginTime > Globals.cl.time)
                 return null;
             PlaySound.release(ps);
             return ps;
-        }
+        //}
     }
     
     private static PlaySound get() {

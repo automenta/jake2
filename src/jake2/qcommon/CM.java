@@ -1743,11 +1743,8 @@ public class CM {
     public static void CM_WritePortalState(RandomAccessFile os) {
 
         try {
-            for (int n = 0; n < portalopen.length; n++)
-                if (portalopen[n])
-                    os.writeInt(1);
-                else
-                    os.writeInt(0);
+            for (boolean aPortalopen : portalopen)
+                os.writeInt(aPortalopen ? 1 : 0);
         } catch (Exception e) {
             Com.Printf("ERROR:" + e);
             e.printStackTrace();

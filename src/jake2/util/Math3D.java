@@ -331,48 +331,59 @@ public class Math3D {
 		int sides;
 
 		//	   fast axial cases
-		if (p.type < 3) {
-			if (p.dist <= emins[p.type])
+		byte ptype = p.type;
+		float pDist = p.dist;
+		if (ptype < 3) {
+			if (pDist <= emins[ptype])
 				return 1;
-			if (p.dist >= emaxs[p.type])
+			if (pDist >= emaxs[ptype])
 				return 2;
 			return 3;
 		}
 
 		//	   general case
 		float[] normal = p.normal;
+		float n0 = normal[0];
+		float n1 = normal[1];
+		float n2 = normal[2];
+		float max0 = emaxs[0];
+		float max1 = emaxs[1];
+		float max2 = emaxs[2];
+		float min0 = emins[0];
+		float min1 = emins[1];
+		float min2 = emins[2];
 		switch (p.signbits) {
 			case 0 :
-				dist1 = normal[0] * emaxs[0] + normal[1] * emaxs[1] + normal[2] * emaxs[2];
-				dist2 = normal[0] * emins[0] + normal[1] * emins[1] + normal[2] * emins[2];
+				dist1 = n0 * max0 + n1 * max1 + n2 * max2;
+				dist2 = n0 * min0 + n1 * min1 + n2 * min2;
 				break;
 			case 1 :
-				dist1 = normal[0] * emins[0] + normal[1] * emaxs[1] + normal[2] * emaxs[2];
-				dist2 = normal[0] * emaxs[0] + normal[1] * emins[1] + normal[2] * emins[2];
+				dist1 = n0 * min0 + n1 * max1 + n2 * max2;
+				dist2 = n0 * max0 + n1 * min1 + n2 * min2;
 				break;
 			case 2 :
-				dist1 = normal[0] * emaxs[0] + normal[1] * emins[1] + normal[2] * emaxs[2];
-				dist2 = normal[0] * emins[0] + normal[1] * emaxs[1] + normal[2] * emins[2];
+				dist1 = n0 * max0 + n1 * min1 + n2 * max2;
+				dist2 = n0 * min0 + n1 * max1 + n2 * min2;
 				break;
 			case 3 :
-				dist1 = normal[0] * emins[0] + normal[1] * emins[1] + normal[2] * emaxs[2];
-				dist2 = normal[0] * emaxs[0] + normal[1] * emaxs[1] + normal[2] * emins[2];
+				dist1 = n0 * min0 + n1 * min1 + n2 * max2;
+				dist2 = n0 * max0 + n1 * max1 + n2 * min2;
 				break;
 			case 4 :
-				dist1 = normal[0] * emaxs[0] + normal[1] * emaxs[1] + normal[2] * emins[2];
-				dist2 = normal[0] * emins[0] + normal[1] * emins[1] + normal[2] * emaxs[2];
+				dist1 = n0 * max0 + n1 * max1 + n2 * min2;
+				dist2 = n0 * min0 + n1 * min1 + n2 * max2;
 				break;
 			case 5 :
-				dist1 = normal[0] * emins[0] + normal[1] * emaxs[1] + normal[2] * emins[2];
-				dist2 = normal[0] * emaxs[0] + normal[1] * emins[1] + normal[2] * emaxs[2];
+				dist1 = n0 * min0 + n1 * max1 + n2 * min2;
+				dist2 = n0 * max0 + n1 * min1 + n2 * max2;
 				break;
 			case 6 :
-				dist1 = normal[0] * emaxs[0] + normal[1] * emins[1] + normal[2] * emins[2];
-				dist2 = normal[0] * emins[0] + normal[1] * emaxs[1] + normal[2] * emaxs[2];
+				dist1 = n0 * max0 + n1 * min1 + n2 * min2;
+				dist2 = n0 * min0 + n1 * max1 + n2 * max2;
 				break;
 			case 7 :
-				dist1 = normal[0] * emins[0] + normal[1] * emins[1] + normal[2] * emins[2];
-				dist2 = normal[0] * emaxs[0] + normal[1] * emaxs[1] + normal[2] * emaxs[2];
+				dist1 = n0 * min0 + n1 * min1 + n2 * min2;
+				dist2 = n0 * max0 + n1 * max1 + n2 * max2;
 				break;
 			default :
 				dist1 = dist2 = 0;
@@ -381,48 +392,52 @@ public class Math3D {
 		}
 
 		sides = 0;
-		if (dist1 >= p.dist)
+		if (dist1 >= pDist)
 			sides = 1;
-		if (dist2 < p.dist)
+		if (dist2 < pDist)
 			sides |= 2;
 
 		assert(sides != 0) : "BoxOnPlaneSide(): sides == 0 bug";
 
 		return sides;
 	}
-	//	this is the slow, general version
-	private static final float[][] corners = new float[2][3];
-	public static final int BoxOnPlaneSide2(float[] emins, float[] emaxs, cplane_t p) {
 
-		for (int i = 0; i < 3; i++) {
-			if (p.normal[i] < 0) {
-				corners[0][i] = emins[i];
-				corners[1][i] = emaxs[i];
-			}
-			else {
-				corners[1][i] = emins[i];
-				corners[0][i] = emaxs[i];
-			}
-		}
-		float dist1 = DotProduct(p.normal, corners[0]) - p.dist;
-		float dist2 = DotProduct(p.normal, corners[1]) - p.dist;
-		int sides = 0;
-		if (dist1 >= 0)
-			sides = 1;
-		if (dist2 < 0)
-			sides |= 2;
+//	//	this is the slow, general version
+//	private static final float[][] corners = new float[2][3];
+//
+//	public static final int BoxOnPlaneSide2(float[] emins, float[] emaxs, cplane_t p) {
+//
+//		for (int i = 0; i < 3; i++) {
+//			if (p.normal[i] < 0) {
+//				corners[0][i] = emins[i];
+//				corners[1][i] = emaxs[i];
+//			}
+//			else {
+//				corners[1][i] = emins[i];
+//				corners[0][i] = emaxs[i];
+//			}
+//		}
+//		float dist1 = DotProduct(p.normal, corners[0]) - p.dist;
+//		float dist2 = DotProduct(p.normal, corners[1]) - p.dist;
+//		int sides = 0;
+//		if (dist1 >= 0)
+//			sides = 1;
+//		if (dist2 < 0)
+//			sides |= 2;
+//
+//		return sides;
+//	}
 
-		return sides;
-	}
 	public static void AngleVectors(float[] angles, float[] forward, float[] right, float[] up) {
 
 		float cr = 2.0f * piratio;
+
 		float angle = angles[Defines.YAW] * (cr);
 		float sy = (float) Math.sin(angle);
 		float cy = (float) Math.cos(angle);
-		angle = angles[Defines.PITCH] * (cr);
-		float sp = (float) Math.sin(angle);
-		float cp = (float) Math.cos(angle);
+		float angle2 = angles[Defines.PITCH] * (cr);
+		float sp = (float) Math.sin(angle2);
+		float cp = (float) Math.cos(angle2);
 
 		if (forward != null) {
 			forward[0] = cp * cy;
@@ -431,9 +446,9 @@ public class Math3D {
 		}
 
 		if (right != null || up != null) {
-			angle = angles[Defines.ROLL] * (cr);
-			float sr = (float) Math.sin(angle);
-			cr = (float) Math.cos(angle);
+			float angle3 = angles[Defines.ROLL] * (cr);
+			float sr = (float) Math.sin(angle3);
+			cr = (float) Math.cos(angle3);
 
 			if (right != null) {
 				right[0] = (-sr * sp * cy + cr * sy);
@@ -461,10 +476,17 @@ public class Math3D {
 		return x[0] * y[0] + x[1] * y[1] + x[2] * y[2];
 	}
 	public static void CrossProduct(float[] v1, float[] v2, float[] cross) {
-		cross[0] = v1[1] * v2[2] - v1[2] * v2[1];
-		cross[1] = v1[2] * v2[0] - v1[0] * v2[2];
-		cross[2] = v1[0] * v2[1] - v1[1] * v2[0];
+		float v11 = v1[1];
+		float v12 = v1[2];
+		float v22 = v2[2];
+		float v21 = v2[1];
+		cross[0] = v11 * v22 - v12 * v21;
+		float v10 = v1[0];
+		float v20 = v2[0];
+		cross[1] = v12 * v20 - v10 * v22;
+		cross[2] = v10 * v21 - v11 * v20;
 	}
+
 	public static int Q_log2(int val) {
 		int answer = 0;
 		while ((val >>= 1) > 0)
@@ -487,19 +509,11 @@ public class Math3D {
 			a1 += 360;
 		return a2 + frac * (a1 - a2);
 	}
-	public static float CalcFov(float fov_x, float width, float height) {
-		double a = 0.0f;
-		double x;
 
+	public static float CalcFov(float fov_x, float width, float height) {
 		if (fov_x < 1.0f || fov_x > 179.0f)
 			Com.Error(Defines.ERR_DROP, "Bad fov: " + fov_x);
 
-		x = width / Math.tan(fov_x * piratio);
-
-		a = Math.atan(height / x);
-
-		a = a / piratio;
-
-		return (float) a;
+		return (float)(Math.atan(height / (width / Math.tan(fov_x * piratio)))) / piratio;
 	}
 }

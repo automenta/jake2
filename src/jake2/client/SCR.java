@@ -1780,7 +1780,6 @@ public final class SCR extends Globals {
             cl.cinematictime = 1;
             BeginLoadingPlaque();
             cl.cinematictime = 0;
-            return;
         }
     }
 

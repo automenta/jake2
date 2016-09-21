@@ -174,7 +174,6 @@ public class GameFunc {
         }
 
         // we are at constant velocity (move_speed)
-        return;
     }
 
     static void plat_go_up(edict_t ent) {
@@ -1037,7 +1036,6 @@ public class GameFunc {
         public void use(edict_t self, edict_t other, edict_t activator) {
             self.activator = activator;
             button_fire.think(self);
-            return;
         }
     };
 
